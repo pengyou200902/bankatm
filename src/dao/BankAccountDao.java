@@ -8,30 +8,30 @@ package dao;
 import model.BankAccount;
 import java.util.List;
 
-public class BankAccountDao implements BaseDao<BankAccount, String> {
+public class BankAccountDao<T extends BankAccount> implements BaseDao<T, String> {
 
     @Override
-    public boolean save(BankAccount user) {
+    public boolean save(T account) {
         return false;
     }
 
     @Override
-    public BankAccount getById(String username) {
+    public T getById(String username) {
         return null;
     }
 
     @Override
-    public List<BankAccount> getAll() {
+    public List<T> getAll() {
         return null;
     }
 
     @Override
-    public boolean update(BankAccount user) {
+    public boolean update(T account) {
         return false;
     }
 
     @Override
-    public boolean delete(BankAccount user) {
+    public boolean delete(T account) {
         return false;
     }
 }
