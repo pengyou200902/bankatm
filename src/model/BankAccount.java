@@ -5,5 +5,32 @@
 
 package model;
 
-public class BankAccount {
+public abstract class BankAccount {
+    private String username;
+    private String accountNumber;
+
+    public BankAccount(String username, String accountNumber) {
+        this.username = username;
+        this.accountNumber = accountNumber;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+//    public abstract void deposit(BaseCurrency currency);
+//
+//    public abstract void withdraw(BaseCurrency currency);
 }
