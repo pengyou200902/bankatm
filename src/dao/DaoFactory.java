@@ -10,20 +10,50 @@ import model.Saving;
 import model.Security;
 
 public class DaoFactory {
-    private final SecurityDao securityDao = new SecurityDao();
-    private final CheckingDao checkingDao = new CheckingDao();
-    private final SavingDao savingDao = new SavingDao();
-    private final UserDao userDao = new UserDao();
-    private final LoanDao loanDao = new LoanDao();
-    private final TransactionDao transactionDao = new TransactionDao();
-    private final StockDao stockDao = new StockDao();
-    private final AccountDao accountDao = new AccountDao();
+    private final static SecurityDao securityDao = new SecurityDao();
+    private final static CheckingDao checkingDao = new CheckingDao();
+    private final static SavingDao savingDao = new SavingDao();
+    private final static UserDao userDao = new UserDao();
+    private final static LoanDao loanDao = new LoanDao();
+    private final static TransactionDao transactionDao = new TransactionDao();
+    private final static StockDao stockDao = new StockDao();
+    private final static AccountDao accountDao = new AccountDao();
 //    private final static BankAccountDao<Checking> checkingDao = new BankAccountDao<>();
 //    private final static BankAccountDao<Saving> savingDao = new BankAccountDao<>();
 //    private final static BankAccountDao<Security> securityDao = new BankAccountDao<>();
 
 
+    public static SecurityDao getSecurityDao() {
+        return securityDao;
+    }
 
+    public static CheckingDao getCheckingDao() {
+        return checkingDao;
+    }
+
+    public static SavingDao getSavingDao() {
+        return savingDao;
+    }
+
+    public static UserDao getUserDao() {
+        return userDao;
+    }
+
+    public static LoanDao getLoanDao() {
+        return loanDao;
+    }
+
+    public static TransactionDao getTransactionDao() {
+        return transactionDao;
+    }
+
+    public static StockDao getStockDao() {
+        return stockDao;
+    }
+
+    public static AccountDao getAccountDao() {
+        return accountDao;
+    }
 }
 //SecurityDao
 //LoanDao
