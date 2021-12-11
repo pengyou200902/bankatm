@@ -10,6 +10,19 @@ import model.User;
 import java.util.List;
 
 public class UserDao implements BaseDao<User, String> {
+    private static UserDao instance = null;
+
+    public static UserDao getInstance() {
+        if (instance == null) {
+            instance = new UserDao();
+        }
+
+        return instance;
+    }
+
+    private UserDao() {
+        
+    }
 
     @Override
     public boolean save(User user) {

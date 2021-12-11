@@ -9,7 +9,7 @@ import model.Checking;
 
 import java.util.List;
 
-public class CheckingDao extends BankAccountDao<Checking> {
+public class CheckingDao implements BaseDao<Checking, String> {
     private static CheckingDao instance = null;
 
     public static CheckingDao getInstance() {
@@ -25,12 +25,12 @@ public class CheckingDao extends BankAccountDao<Checking> {
     }
 
     @Override
-    public boolean save(Checking account) {
+    public boolean save(Checking model) {
         return false;
     }
 
     @Override
-    public Checking getById(String username) {
+    public Checking getById(String id) {
         return null;
     }
 
@@ -40,12 +40,12 @@ public class CheckingDao extends BankAccountDao<Checking> {
     }
 
     @Override
-    public boolean update(Checking account) {
+    public boolean update(Checking model) {
         return false;
     }
 
     @Override
-    public boolean delete(Checking account) {
+    public boolean delete(Checking model) {
         return false;
     }
 }

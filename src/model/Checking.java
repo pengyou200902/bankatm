@@ -15,6 +15,9 @@ public class Checking extends BankAccount{
     public Checking(String username, String accountNumber) {
         super(username, accountNumber);
         currencies = new ArrayList<>();
+        for (String s : CurrencyType.types) {
+            currencies.add(new BaseCurrency(s));
+        }
     }
 
     public Checking(String username, String accountNumber, List<BaseCurrency> currencies) {

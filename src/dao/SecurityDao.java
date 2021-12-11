@@ -5,5 +5,48 @@
 
 package dao;
 
-public class SecurityDao {
+
+import model.Security;
+
+import java.util.List;
+
+public class SecurityDao implements BaseDao<Security, String> {
+    private static SecurityDao instance = null;
+
+    public static SecurityDao getInstance() {
+        if (instance == null) {
+            instance = new SecurityDao();
+        }
+
+        return instance;
+    }
+
+    private SecurityDao() {
+        
+    }
+
+    @Override
+    public boolean save(Security model) {
+        return false;
+    }
+
+    @Override
+    public Security getById(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Security> getAll() {
+        return null;
+    }
+
+    @Override
+    public boolean update(Security model) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Security model) {
+        return false;
+    }
 }
