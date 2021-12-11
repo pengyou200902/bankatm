@@ -34,6 +34,10 @@ public class SavingDao implements BaseDao<Saving, String> {
         return null;
     }
 
+    public Saving getByUsername(String username) {
+        return null;
+    }
+
     @Override
     public List<Saving> getAll() {
         return null;

@@ -35,6 +35,10 @@ public class SecurityDao implements BaseDao<Security, String> {
         return null;
     }
 
+    public Security getByUsername(String username) {
+        return null;
+    }
+
     @Override
     public List<Security> getAll() {
         return null;

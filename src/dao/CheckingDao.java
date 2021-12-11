@@ -34,6 +34,10 @@ public class CheckingDao implements BaseDao<Checking, String> {
         return null;
     }
 
+    public Checking getByUsername(String username) {
+        return null;
+    }
+
     @Override
     public List<Checking> getAll() {
         return null;
