@@ -10,7 +10,20 @@ import model.Account;
 import java.util.List;
 
 public class AccountDao implements BaseDao<Account, String> {
-    
+    private static AccountDao instance = null;
+
+    public static AccountDao getInstance() {
+        if (instance == null) {
+            instance = new AccountDao();
+        }
+
+        return instance;
+    }
+
+    private AccountDao() {
+        
+    }
+
     @Override
     public boolean save(Account user) {
         return false;
