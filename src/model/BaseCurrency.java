@@ -26,14 +26,14 @@ public class BaseCurrency {
         return this.name.equals(other.getName());
     }
 
-    public void addValue(double value) {
-        amount += value;
+    public void addValue(BaseCurrency another) {
+        amount += another.getAmount();
     }
 
-    public boolean minusValue(double value) {
-        if (amount < value) return false;
+    public boolean minusValue(BaseCurrency another) {
+        if (amount < another.getAmount()) return false;
         else {
-            amount -= value;
+            amount -= another.getAmount();
             return true;
         }
     }
