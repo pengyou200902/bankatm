@@ -8,7 +8,6 @@ package model;
 
 public class BaseCurrency {
 
-
     private String name;
     private double amount;
 

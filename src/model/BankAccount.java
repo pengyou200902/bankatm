@@ -7,7 +7,7 @@ package model;
 
 public abstract class BankAccount {
     private String username;
-    private String accountNumber;
+    private String accountNumber; // pk as Adarsh suggested
 
     public BankAccount(String username, String accountNumber) {
         this.username = username;

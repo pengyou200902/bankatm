@@ -8,7 +8,7 @@ package model;
 import java.util.Objects;
 
 public class Account {
-    private String username;
+    private String username; // pk
     private String password;
     private String type;
 

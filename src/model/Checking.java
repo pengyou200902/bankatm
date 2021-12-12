@@ -8,7 +8,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Checking extends BankAccount{
+public class Checking extends BankAccount {
 
     private final List<BaseCurrency> currencies;
 

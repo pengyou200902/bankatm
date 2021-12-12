@@ -9,20 +9,24 @@ import java.sql.Date;
 
 public class Loan {
 
-    private long id;
+    private long id;  // auto increment pk
     private int status;
     private Checking account;
     private BaseCurrency currency;
     private Date date;
     private double interestRate;
 
-    public Loan(long id, int status, Checking account, BaseCurrency currency, Date date, double interestRate) {
-        this.id = id;
+    public Loan(int status, Checking account, BaseCurrency currency, Date date, double interestRate) {
         this.status = status;
         this.account = account;
         this.currency = currency;
         this.date = date;
         this.interestRate = interestRate;
+    }
+
+    public Loan(long id, int status, Checking account, BaseCurrency currency, Date date, double interestRate) {
+        this(status, account, currency, date, interestRate);
+        this.id = id;
     }
 
     public long getId() {

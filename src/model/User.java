@@ -8,10 +8,11 @@ package model;
 import java.util.Objects;
 
 public class User {
+
     private String name;
     private String address;
     private String birthday;
-    private String username;
+    private String username; // pk
 
     public User(String name, String address, String birthday, String username) {
         this.name = name;
