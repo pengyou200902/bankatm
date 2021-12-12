@@ -20,10 +20,10 @@ public class BankAccountController {
     private final Set<String> types;
     private final Random random;
 
-    public BankAccountController(CheckingDao checkingDao, SavingDao savingDao, SecurityDao securityDao) {
-        this.checkingDao = DaoFactory.getCheckingDao();
-        this.savingDao = DaoFactory.getSavingDao();
-        this.securityDao = DaoFactory.getSecurityDao();
+    public BankAccountController() {
+        this.checkingDao = CheckingDao.getInstance();
+        this.savingDao = SavingDao.getInstance();
+        this.securityDao = SecurityDao.getInstance();
         this.random = new Random();
         this.types = new HashSet<>();
         types.add("Checking");
