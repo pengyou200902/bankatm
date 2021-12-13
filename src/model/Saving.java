@@ -25,6 +25,6 @@ public class Saving extends BankAccount {
 
     @Override
     public AccountTypes getType() {
-        return AccountTypes.CHECKING;
+        return AccountTypes.SAVING;
     }
 }

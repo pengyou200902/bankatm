@@ -58,6 +58,6 @@ public class Security extends BankAccount {
 
     @Override
     public AccountTypes getType() {
-        return AccountTypes.CHECKING;
+        return AccountTypes.SECURITY;
     }
 }
