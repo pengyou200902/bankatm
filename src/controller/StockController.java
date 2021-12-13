@@ -6,7 +6,7 @@
 
 package controller;
 
-import dao.DaoFactory;
+//import dao.DaoFactory;
 import dao.StockDao;
 import model.OpResponse;
 import model.Security;
@@ -16,7 +16,7 @@ public class StockController {
     private final StockDao stockDao;
 
     public StockController() {
-        stockDao = DaoFactory.getStockDao();
+        stockDao = StockDao.getInstance();
     }
 
     public OpResponse buyStock(Security account, Stock stock) {

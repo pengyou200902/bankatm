@@ -53,6 +53,16 @@ public class BaseCurrency {
         this.amount = amount;
     }
 
+    public String serialize() {
+        return name + " " + Double.toString(amount);
+    }
 
+    public static BaseCurrency deserialize(String s) {
+        String[] splits = s.split(" +");
+        assert splits.length == 2: "Malformed BaseCurrency " + s;
 
+        String name = splits[0];
+        double amount = Double.parseDouble(splits[1]);
+        return new BaseCurrency(name, amount);
+    }
 }

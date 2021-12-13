@@ -22,4 +22,9 @@ public class Saving extends BankAccount {
     public BaseCurrency getBalance() {
         return balance;
     }
+
+    @Override
+    public AccountTypes getType() {
+        return AccountTypes.CHECKING;
+    }
 }

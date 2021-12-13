@@ -29,4 +29,9 @@ public class Checking extends BankAccount {
     public List<BaseCurrency> getCurrencies() {
         return currencies;
     }
+
+    @Override
+    public AccountTypes getType() {
+        return AccountTypes.CHECKING;
+    }
 }

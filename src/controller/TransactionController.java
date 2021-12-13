@@ -6,14 +6,14 @@
 
 package controller;
 
-import dao.DaoFactory;
+//import dao.DaoFactory;
 import dao.TransactionDao;
 
 public class TransactionController {
     private final TransactionDao transactionDao;
 
     public TransactionController() {
-        transactionDao = DaoFactory.getTransactionDao();
+        transactionDao = null;
     }
 
 
