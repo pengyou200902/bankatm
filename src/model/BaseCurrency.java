@@ -65,4 +65,12 @@ public class BaseCurrency {
         double amount = Double.parseDouble(splits[1]);
         return new BaseCurrency(name, amount);
     }
+
+    @Override
+    public String toString() {
+        return "Currency{" +
+                "name='" + name + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

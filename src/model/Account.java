@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Account {
     private String username; // pk
     private String password;
-    private String type;
+    private String type; // User, Manager
 
     public Account(String username, String password) {
         this.username = username;

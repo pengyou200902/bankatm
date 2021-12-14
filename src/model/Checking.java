@@ -34,4 +34,6 @@ public class Checking extends BankAccount {
     public AccountTypes getType() {
         return AccountTypes.CHECKING;
     }
+
+
 }
