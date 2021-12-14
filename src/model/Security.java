@@ -10,8 +10,8 @@ import java.util.HashMap;
 public class Security extends BankAccount {
 
     private final BaseCurrency balance;
-    private final HashMap<Stock, Integer> owned;
-    private final HashMap<Stock, Integer> open;
+    private final HashMap<String, Integer> owned;
+    private final HashMap<String, Integer> open;
     private final BaseCurrency realizedProfit;
 
     public Security(String username, String accountNumber) {
@@ -25,8 +25,8 @@ public class Security extends BankAccount {
     public Security(String username,
                     String accountNumber,
                     BaseCurrency balance,
-                    HashMap<Stock, Integer> owned,
-                    HashMap<Stock, Integer> open,
+                    HashMap<String, Integer> owned,
+                    HashMap<String, Integer> open,
                     BaseCurrency realizedProfit) {
         super(username, accountNumber);
         this.balance = balance;
@@ -40,11 +40,11 @@ public class Security extends BankAccount {
         return balance;
     }
 
-    public HashMap<Stock, Integer> getOwned() {
+    public HashMap<String, Integer> getOwned() {
         return owned;
     }
 
-    public HashMap<Stock, Integer> getOpen() {
+    public HashMap<String, Integer> getOpen() {
         return open;
     }
 
@@ -52,7 +52,7 @@ public class Security extends BankAccount {
         return realizedProfit;
     }
 
-    private boolean isEnabled() {
+    public boolean isEnabled() {
         return this.balance.getAmount() >= 5000;
     }
 }
