@@ -1,11 +1,11 @@
 /**
  * @Author Friende.Peng_You
- * @Date 2021-12-07 17:20
+ * @Timestamp 2021-12-07 17:20
  */
 
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Transaction {
 
@@ -13,17 +13,19 @@ public class Transaction {
     private double interestRate;
     private BankAccount account;
     private BaseCurrency currency;
-    private Date date;
+    private String comment;
+    private Timestamp date;
 
-    public Transaction(double interestRate, BankAccount account, BaseCurrency currency, Date date) {
+    public Transaction(double interestRate, BankAccount account, BaseCurrency currency, String comment, Timestamp date) {
         this.interestRate = interestRate;
         this.account = account;
         this.currency = currency;
+        this.comment = comment;
         this.date = date;
     }
 
-    public Transaction(long id, double interestRate, BankAccount account, BaseCurrency currency, Date date) {
-        this(interestRate, account, currency, date);
+    public Transaction(long id, double interestRate, BankAccount account, BaseCurrency currency, String comment, Timestamp date) {
+        this(interestRate, account, currency, comment, date);
         this.id = id;
     }
 
@@ -55,15 +57,23 @@ public class Transaction {
         return currency;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
     public void setCurrency(BaseCurrency currency) {
         this.currency = currency;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

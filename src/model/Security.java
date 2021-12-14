@@ -12,7 +12,8 @@ public class Security extends BankAccount {
     private final BaseCurrency balance;
     private final HashMap<Stock, Integer> owned;
     private final HashMap<Stock, Integer> open;
-    private final BaseCurrency realizedProfit;
+    private final BaseCurrency unrealizedProfit;
+    private BaseCurrency realizedProfit;
 
     public Security(String username, String accountNumber) {
         super(username, accountNumber);
@@ -20,6 +21,7 @@ public class Security extends BankAccount {
         this.owned = new HashMap<>();
         this.open = new HashMap<>();
         this.realizedProfit = new BaseCurrency("USD", 0);
+        this.unrealizedProfit = new BaseCurrency("USD", 0);
     }
 
     public Security(String username,
@@ -27,14 +29,19 @@ public class Security extends BankAccount {
                     BaseCurrency balance,
                     HashMap<Stock, Integer> owned,
                     HashMap<Stock, Integer> open,
-                    BaseCurrency realizedProfit) {
+                    BaseCurrency realizedProfit,
+                    BaseCurrency unrealizedProfit) {
         super(username, accountNumber);
         this.balance = balance;
         this.owned = owned;
         this.open = open;
         this.realizedProfit = realizedProfit;
+        this.unrealizedProfit = unrealizedProfit;
     }
 
+    public void setRealizedProfit(BaseCurrency realizedProfit) {
+        this.realizedProfit = realizedProfit;
+    }
 
     public BaseCurrency getBalance() {
         return balance;
@@ -52,7 +59,11 @@ public class Security extends BankAccount {
         return realizedProfit;
     }
 
-    private boolean isEnabled() {
+    public BaseCurrency getUnrealizedProfit() {
+        return unrealizedProfit;
+    }
+
+    public boolean isEnabled() {
         return this.balance.getAmount() >= 5000;
     }
 

@@ -1,22 +1,22 @@
 /**
  * @Author Friende.Peng_You
- * @Date 2021-12-07 17:20
+ * @Timestamp 2021-12-07 17:20
  */
 
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Loan {
 
     private long id;  // auto increment pk
-    private int status;
+    private int status; // -1 in review, 0 refused, 1 approved
     private Checking account;
     private BaseCurrency currency;
-    private Date date;
+    private Timestamp date;
     private double interestRate;
 
-    public Loan(int status, Checking account, BaseCurrency currency, Date date, double interestRate) {
+    public Loan(int status, Checking account, BaseCurrency currency, Timestamp date, double interestRate) {
         this.status = status;
         this.account = account;
         this.currency = currency;
@@ -24,7 +24,7 @@ public class Loan {
         this.interestRate = interestRate;
     }
 
-    public Loan(long id, int status, Checking account, BaseCurrency currency, Date date, double interestRate) {
+    public Loan(long id, int status, Checking account, BaseCurrency currency, Timestamp date, double interestRate) {
         this(status, account, currency, date, interestRate);
         this.id = id;
     }
@@ -61,11 +61,11 @@ public class Loan {
         this.currency = currency;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
