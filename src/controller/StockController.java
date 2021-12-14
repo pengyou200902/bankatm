@@ -6,6 +6,7 @@
 
 package controller;
 
+//import dao.DaoFactory;
 import dao.StockDao;
 import model.OpResponse;
 import model.Security;
@@ -18,16 +19,12 @@ public class StockController {
         stockDao = StockDao.getInstance();
     }
 
-    public OpResponse buyStock(Security account, Stock stock, int quantity) {
-        String stockName = stock.getName();
-        Stock real = stockDao.getById(stockName);
-        if (account.isEnabled() && real != null && quantity <= account.getOwned().getOrDefault(stockName, 0)) {
-            // TODO:
-        }
+    public OpResponse buyStock(Security account, Stock stock) {
+        // TODO:
         return null;
     }
 
-    public OpResponse sellStock(Security account, Stock stock, int quantity) {
+    public OpResponse sellStock(Security account, Stock stock) {
         // TODO:
         return null;
     }

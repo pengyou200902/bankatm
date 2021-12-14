@@ -30,6 +30,10 @@ public abstract class BankAccount {
         this.accountNumber = accountNumber;
     }
 
+    public AccountTypes getType() {
+        return null;
+    }
+
 //    public abstract void deposit(BaseCurrency currency);
 //
 //    public abstract void withdraw(BaseCurrency currency);

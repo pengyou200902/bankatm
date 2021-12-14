@@ -6,6 +6,8 @@
 package dao;
 
 import model.BankAccount;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class BankAccountDao<T extends BankAccount> implements BaseDao<T, String> {
@@ -33,5 +35,10 @@ public class BankAccountDao<T extends BankAccount> implements BaseDao<T, String>
     @Override
     public boolean delete(T account) {
         return false;
+    }
+
+    @Override
+    public void createTable() throws SQLException {
+        return;
     }
 }

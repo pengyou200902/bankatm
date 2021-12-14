@@ -55,4 +55,9 @@ public class Security extends BankAccount {
     public boolean isEnabled() {
         return this.balance.getAmount() >= 5000;
     }
+
+    @Override
+    public AccountTypes getType() {
+        return AccountTypes.SECURITY;
+    }
 }

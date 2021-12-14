@@ -5,6 +5,7 @@
 
 package dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BaseDao<T, K> {
@@ -18,4 +19,6 @@ public interface BaseDao<T, K> {
     boolean update(T model);
 
     boolean delete(T model);
+
+    void createTable() throws SQLException;
 }
