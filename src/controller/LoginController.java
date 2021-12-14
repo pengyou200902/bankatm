@@ -16,6 +16,11 @@ public class LoginController {
     private AccountDao accountDao;
 
     public User login(String username, String password) {
+        if (username == null || password == null) {
+//            throw new IllegalArgumentException("Invalid input!");
+            System.out.println("Invalid input!");
+            return null;
+        }
         Account account = accountDao.getById(username);
         if (account != null) {
             Account loginAccount = new Account(username, password);
@@ -28,6 +33,7 @@ public class LoginController {
 
 
     public boolean signUp(String name, String address, String birthday, String username, String password) {
+        if (name == null || address == null || birthday == null || username == null)    return false;
         if (userDao.getById(username) != null || accountDao.getById(username) != null)  return false;
 
         User user = new User(name, address, birthday, username);
@@ -36,4 +42,8 @@ public class LoginController {
         accountDao.save(account);
         return true;
     }
+
+//    public static void main(String[] args) {
+//        new LoginController().login("1", "2");
+//    }
 }

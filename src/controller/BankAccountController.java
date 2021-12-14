@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class BankAccountController {
+    // TODO: record transactions
 
     private final CheckingDao checkingDao;
     private final SavingDao savingDao;
@@ -125,9 +126,35 @@ public class BankAccountController {
         else return new OpResponse(0, false,  "Withdraw Failed!");
     }
 
-    public boolean transfer(BankAccount src, BankAccount dst, BaseCurrency currency) {
-        // TODO: transfer money between accounts
-        return false;
+    public <S extends BankAccount, D extends BankAccount> OpResponse transfer(S src, D dst, BaseCurrency currency) {
+        // ensure enough money
+        BaseCurrency matchedSrcBalance = matchCurrency(src, currency);
+        BaseCurrency matchedDstBalance = matchCurrency(dst, currency);
+
+        if (matchedSrcBalance == null
+                || matchedDstBalance == null
+                || matchedSrcBalance.getAmount() < currency.getAmount()) {
+            return new OpResponse(0, false, "Failed. Please check your balance or input of account number.");
+        }
+
+        // check whether Security account is enabled and belongs to the same person
+        if (dst instanceof Security) {
+            Security security = (Security) dst;
+            if (!security.isEnabled() || !src.getUsername().equals(security.getUsername())) {
+                return new OpResponse(0, false, "Failed. The bank account may not be enabled or may not be yours.");
+            }
+        }
+        else if (src instanceof Security) {
+            Security security = (Security) src;
+            if (!security.isEnabled() || !dst.getUsername().equals(security.getUsername())) {
+                return new OpResponse(0, false, "Failed. The bank account may not be enabled or may not be yours.");
+            }
+        }
+        matchedSrcBalance.minusValue(currency);
+        matchedDstBalance.addValue(currency);
+        updateAccount(src);
+        updateAccount(dst);
+        return new OpResponse(1, true, "Transfer success!", currency);
     }
 
     private <T extends BankAccount> BaseCurrency matchCurrency(T account, BaseCurrency currency) {
@@ -139,10 +166,16 @@ public class BankAccountController {
             }
         }
         else if (account instanceof Saving) {
-            return ((Saving) account).getBalance();
+            Saving saving = (Saving) account;
+            if (saving.getBalance().isSameKind(currency)) {
+                return saving.getBalance();
+            }
         }
         else {
-            return ((Security) account).getBalance();
+            Security security = (Security) account;
+            if (security.getBalance().isSameKind(currency)) {
+                return security.getBalance();
+            }
         }
         return null;
     }
@@ -156,6 +189,18 @@ public class BankAccountController {
         } while (dao.getById(accountNumber) == null);
 
         return accountNumber;
+    }
+
+    private <T extends BankAccount> boolean updateAccount(T account) {
+        if (account instanceof Checking) {
+            return checkingDao.update((Checking) account);
+        }
+        else if (account instanceof Saving) {
+            return savingDao.update((Saving) account);
+        }
+        else {
+            return securityDao.update((Security) account);
+        }
     }
 
 }
