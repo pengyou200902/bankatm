@@ -8,12 +8,20 @@ package controller;
 import dao.AccountDao;
 import dao.UserDao;
 import model.Account;
+import model.OpResponse;
 import model.User;
+
+import java.util.List;
 
 public class LoginController {
 
     private UserDao userDao;
     private AccountDao accountDao;
+
+    public OpResponse getAllUsers() {
+        List<User> users = userDao.getAll();
+        return new OpResponse(1, true, "Success", users);
+    }
 
     public User login(String username, String password) {
         if (username == null || password == null) {
@@ -41,6 +49,23 @@ public class LoginController {
         userDao.save(user);
         accountDao.save(account);
         return true;
+    }
+
+    public OpResponse updateAccount(String username, String name, String address, String birthday, String password) {
+        if (name == null || address == null || birthday == null || username == null) {
+            return new OpResponse(0, false, "Invalid request!");
+        }
+        User user = userDao.getById(username);
+        Account account = accountDao.getById(username);
+        if (user != null && account != null) {
+            user.setName(name);
+            user.setAddress(address);
+            user.setBirthday(birthday);
+            account.setPassword(password);
+            userDao.update(user);
+            accountDao.update(account);
+        }
+        return new OpResponse(0, false, "Invalid request!", new Object[]{user, account});
     }
 
 //    public static void main(String[] args) {
