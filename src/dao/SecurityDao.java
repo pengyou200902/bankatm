@@ -234,13 +234,12 @@ public class SecurityDao implements BaseDao<Security, String> {
 
         for (String stockString: stockStrings) {
             String[] slices = stockString.split(" +");
-            assert slices.length == 4: "Malformed Stock String " + stockString;
+            assert slices.length == 2: "Malformed Stock String " + stockString;
 
-            String name = slices[0], currencyName = slices[1];
-            Double amount = Double.parseDouble(slices[2]);
-            Integer value = Integer.parseInt(slices[3]);
+            String name = slices[0];
+            Integer value = Integer.parseInt(slices[1]);
 
-            Stock stock = new Stock(name, new BaseCurrency(currencyName, amount));
+            Stock stock = StockDao.getInstance().getById(name);
             hashMap.put(stock, value);
         }
 
@@ -255,7 +254,6 @@ public class SecurityDao implements BaseDao<Security, String> {
         for (Stock stock: keySet) {
             Integer value = hashMap.get(stock);
             acc += "\"" + stock.getName() + " " 
-                + stock.getPrice().serialize() + " "
                 + Integer.toString(value) + "\"";
             
             if (counter != keySet.size() - 1) {
