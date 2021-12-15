@@ -161,6 +161,7 @@ public class StockDao implements BaseDao<Stock, String>{
 
         String sql = "CREATE TABLE " + tableName + " " +
                 "(NAME TEXT PRIMARY KEY NOT NULL," +
+                " ENABLED BOOLEAN," + 
                 " PRICE TEXT)";
         
         statement.executeUpdate(sql);
@@ -172,7 +173,8 @@ public class StockDao implements BaseDao<Stock, String>{
     private Stock parseResultSet(ResultSet rs) throws SQLException {
         String name = rs.getString("NAME");
         BaseCurrency price = BaseCurrency.deserialize(rs.getString("PRICE"));
+        boolean enabled = rs.getBoolean("ENABLED");
         
-        return new Stock(name, price);
+        return new Stock(name, price, enabled);
     }
 }

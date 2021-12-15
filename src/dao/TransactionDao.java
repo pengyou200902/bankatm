@@ -5,6 +5,7 @@
 
 package dao;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import model.AccountTypes;
@@ -47,13 +48,14 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
                 .getConnection()
                 .createStatement();
             
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss");
             
-            String sql = "INSERT INTO " + tableName + " (INTERESTRATE, ACCOUNT, ACCTYPE, CURRENCY, DATE) VALUES ("
+            String sql = "INSERT INTO " + tableName + " (INTERESTRATE, ACCOUNT, ACCTYPE, CURRENCY, COMMENT, DATE) VALUES ("
                 + transaction.getInterestRate() + ", '" 
                 + transaction.getAccount().getAccountNumber() + "', '" 
                 + transaction.getAccount().getType().getTypeString() + "', '"
                 + transaction.getCurrency().serialize() + "', '"
+                + transaction.getComment() + "', '"
                 + formatter.format(transaction.getDate()) + "');";
 
             statement.executeUpdate(sql);
@@ -95,27 +97,17 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
 
     @Override
     public List<Transaction> getAll() {
-        try {
-            LinkedList<Transaction> accList = new LinkedList<Transaction>();
+        return fetchAll("SELECT * FROM " + tableName);
+    }
 
-            Statement statement = ConnectionManager
-                .getInstance()
-                .getConnection()
-                .createStatement();
+    public List<Transaction> getByDate(Timestamp date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM " + tableName);
-            
-            while (rs.next()) {
-                accList.add(parseResultSet(rs));
-            }
-
-            rs.close();
-            statement.close();
-            return accList;
-        } catch(SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return fetchAll("SELECT * FROM " 
+            + tableName
+            + " WHERE DATE(DATE) = '"
+            + formatter.format(date) + "'"
+        );
     }
 
     @Override
@@ -133,6 +125,7 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
                 + "ACCTYPE='" + transaction.getAccount().getType().getTypeString() + "', " 
                 + "CURRENCY='" + transaction.getCurrency().serialize()+ "', " 
                 + "DATE='" + formatter.format(transaction.getDate()) + "', " 
+                + "COMMENT='" + transaction.getComment()+ "', " 
                 + "INTERESTRATE=" + Double.toString(transaction.getInterestRate()) + " "
                 + "WHERE ID=" + transaction.getId();
 
@@ -179,7 +172,8 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
                 " ACCOUNT TEXT, " +
                 " ACCTYPE TEXT, " +
                 " CURRENCY TEXT, " +
-                " DATE DATE)";
+                " COMMENT TEXT, " +
+                " DATE TIMESTAMP)";
         
         statement.executeUpdate(sql);
         statement.close();
@@ -190,9 +184,11 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
     private Transaction parseResultSet(ResultSet rs) throws SQLException {
         long id = rs.getLong("ID");
         double interestRate = rs.getDouble("INTERESTRATE");
-        Date date = rs.getDate("DATE");
+        Timestamp date = rs.getTimestamp("DATE");
         BaseCurrency currency = BaseCurrency.deserialize(rs.getString("CURRENCY"));
-        String accType = rs.getString("ACCTYPE"), accNum = rs.getString("ACCOUNT");
+        String accType = rs.getString("ACCTYPE"), 
+            accNum = rs.getString("ACCOUNT"),
+            comment = rs.getString("COMMENT");
         BankAccount account = null;
 
         if (accType.equals(AccountTypes.CHECKING.getTypeString())) {
@@ -203,6 +199,30 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
             account = SecurityDao.getInstance().getById(accNum);
         }
 
-        return new Transaction(id, interestRate, account, currency, date);
+        return new Transaction(id, interestRate, account, currency, comment, date);
+    }
+
+    private List<Transaction> fetchAll(String query) {
+        try {
+            LinkedList<Transaction> accList = new LinkedList<Transaction>();
+
+            Statement statement = ConnectionManager
+                .getInstance()
+                .getConnection()
+                .createStatement();
+
+            ResultSet rs = statement.executeQuery(query);
+            
+            while (rs.next()) {
+                accList.add(parseResultSet(rs));
+            }
+
+            rs.close();
+            statement.close();
+            return accList;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

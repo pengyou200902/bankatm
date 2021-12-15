@@ -48,11 +48,12 @@ public class SecurityDao implements BaseDao<Security, String> {
                 .getConnection()
                 .createStatement();
             
-            String sql = "INSERT INTO " + tableName + " (ACCOUNTNUMBER, USERNAME, BALANCE, REALIZEDPROFIT, OWNED, OPEN) VALUES ('"
+            String sql = "INSERT INTO " + tableName + " (ACCOUNTNUMBER, USERNAME, BALANCE, REALIZEDPROFIT, UNREALIZEDPROFIT, OWNED, OPEN) VALUES ('"
                 + model.getAccountNumber() + "', '" 
                 + model.getUsername() + "', '" 
                 + model.getBalance().serialize() + "', '"
                 + model.getRealizedProfit().serialize() + "', '"
+                + model.getUnrealizedProfit().serialize() + "', '"
                 + getStockString(model.getOwned()) + "', '"
                 + getStockString(model.getOpen()) + "');";
 
@@ -156,6 +157,7 @@ public class SecurityDao implements BaseDao<Security, String> {
             String sql = "UPDATE " + tableName + " set "
                 + "USERNAME='" + model.getUsername() + "', " 
                 + "BALANCE='" + model.getBalance().serialize() + "', "
+                + "UNREALIZEDPROFIT='" + model.getUnrealizedProfit().serialize() + "', "
                 + "REALIZEDPROFIT='" + model.getRealizedProfit().serialize() + "', "
                 + "OWNED='" + getStockString(model.getOwned()) + "', "
                 + "OPEN='" + getStockString(model.getOpen())+ "' "
@@ -203,6 +205,7 @@ public class SecurityDao implements BaseDao<Security, String> {
                 " USERNAME TEXT NOT NULL, " +
                 " BALANCE TEXT, " + 
                 " REALIZEDPROFIT TEXT, " + 
+                " UNREALIZEDPROFIT TEXT, " + 
                 " OWNED TEXT[], " +
                 " OPEN TEXT[])";
         
@@ -217,12 +220,13 @@ public class SecurityDao implements BaseDao<Security, String> {
             accountNumber = rs.getString("ACCOUNTNUMBER");
         
         BaseCurrency balance = BaseCurrency.deserialize(rs.getString("BALANCE")),
-            realizedProfit = BaseCurrency.deserialize(rs.getString("REALIZEDPROFIT"));
+            realizedProfit = BaseCurrency.deserialize(rs.getString("REALIZEDPROFIT")),
+            unrealizedProfit = BaseCurrency.deserialize(rs.getString("UNREALIZEDPROFIT"));
 
         HashMap<Stock, Integer> owned = parseStockStrings((String []) rs.getArray("OWNED").getArray()),
             open = parseStockStrings((String []) rs.getArray("OPEN").getArray());
         
-        return new Security(username, accountNumber, balance, owned, open, realizedProfit);
+        return new Security(username, accountNumber, balance, owned, open, realizedProfit, unrealizedProfit);
     }
 
     private HashMap<Stock, Integer> parseStockStrings(String[] stockStrings) {
