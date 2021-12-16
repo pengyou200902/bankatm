@@ -56,21 +56,32 @@ public class LoginController {
         return true;
     }
 
-    public OpResponse updateAccount(String username, String name, String address, String birthday, String password) {
+    public OpResponse updateUser(String username, String name, String address, String birthday) {
         if (name == null || address == null || birthday == null || username == null) {
             return new OpResponse(0, false, "Invalid request!");
         }
         User user = userDao.getById(username);
-        Account account = accountDao.getById(username);
-        if (user != null && account != null) {
+        if (user != null) {
             user.setName(name);
             user.setAddress(address);
             user.setBirthday(birthday);
-            account.setPassword(password);
             userDao.update(user);
-            accountDao.update(account);
+            return new OpResponse(1, true, "Succeed!", user);
         }
-        return new OpResponse(0, false, "Invalid request!", new Object[]{user, account});
+        return new OpResponse(0, false, "Invalid request!");
+    }
+
+    public OpResponse updateAccount(String username, String password) {
+        if (username == null || password == null) {
+            return new OpResponse(0, false, "Invalid request!");
+        }
+        Account account = accountDao.getById(username);
+        if (account != null) {
+            account.setPassword(password);
+            accountDao.update(account);
+            return new OpResponse(1, true, "Succeed!", account);
+        }
+        return new OpResponse(0, false, "Invalid request!");
     }
 
 //    public static void main(String[] args) {
