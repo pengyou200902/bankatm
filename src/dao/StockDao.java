@@ -120,7 +120,7 @@ public class StockDao implements BaseDao<Stock, String>{
                 .createStatement();
             
             String sql = "UPDATE " + tableName + " set "
-                + "PRICE='" + stock.getPrice().serialize() + "' " 
+                + "PRICE='" + stock.getPrice().serialize() + "', " 
                 + "ENABLED=" + ((stock.isEnabled())? "TRUE" : "FALSE") + " " 
                 + "WHERE NAME='" + stock.getName() + "'";
 
