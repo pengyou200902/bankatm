@@ -29,6 +29,10 @@ public class UserDao implements BaseDao<User, String> {
             if (!ConnectionManager.getInstance().tableExists(tableName)) {
                 createTable();
             }
+
+            if(getById("admin") == null) {
+                save(new User("Admin", "705, Comm. Ave", "1980-01-01", "admin"));
+            }
         } catch (SQLException e) {
             //e.printStackTrace();
         }
