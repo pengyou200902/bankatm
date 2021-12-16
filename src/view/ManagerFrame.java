@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.*;
 import java.awt.Color;
 
 /*
@@ -12,7 +13,7 @@ import java.awt.Color;
  * @author oshorawal
  */
 
-public class ManagerFrame extends javax.swing.JDialog {
+public class ManagerFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form Manager_frame
@@ -38,7 +39,7 @@ public class ManagerFrame extends javax.swing.JDialog {
         manage_stocks = new javax.swing.JButton();
         View_customer = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         view_report.setText("View Report");
         view_report.addActionListener(new java.awt.event.ActionListener() {
