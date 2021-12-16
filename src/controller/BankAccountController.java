@@ -33,6 +33,31 @@ public class BankAccountController {
         types.add(AccountTypes.SAVING.getTypeString());
     }
 
+//    public <T extends BankAccount> OpResponse deleteAccount(T account) {
+//        if (account == null)    return new OpResponse(0, false, "Null account.");
+//        boolean status = false;
+//        if (account instanceof Checking) {
+//            status = checkingDao.delete((Checking) account);
+//        } else if (account instanceof Saving) {
+//            status = savingDao.delete((Saving) account);
+//        } else if (account instanceof Security) {
+//            status = securityDao.delete((Security) account);
+//        }
+//        if (status) return new OpResponse(1, status, "Succeed!", account);
+//        return OpResponse
+//    }
+
+    public OpResponse getAccountByNumber(String accountNumber) {
+        BankAccount account = null;
+        account = checkingDao.getById(accountNumber);
+        if (account != null)    return new OpResponse(1, true, "Get checking.", account);
+        account = savingDao.getById(accountNumber);
+        if (account != null)    return new OpResponse(1, true, "Get saving.", account);
+        account = securityDao.getById(accountNumber);
+        if (account != null)    return new OpResponse(1, true, "Get security.", account);
+        return new OpResponse(0, true, "No such account!", null);
+    }
+
     public BankAccount[] getAllBankAccounts(String username) {
         return new BankAccount[] {
                 checkingDao.getByUsername(username),
