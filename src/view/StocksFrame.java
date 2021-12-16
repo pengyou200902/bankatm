@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +28,8 @@ public class StocksFrame extends javax.swing.JDialog {
         initComponents();
         this.getContentPane().setBackground(Color.GREEN);
         jPanel1.setBackground(Color.GREEN);
+        clear_table();
+        addDataToTable();
     }
 
     /**
@@ -141,6 +144,9 @@ public class StocksFrame extends javax.swing.JDialog {
     private void add_stock_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_stock_buttonActionPerformed
         // TODO add your handling code here:
         ManagerStockAddFrame stock_add = new ManagerStockAddFrame(this,true);
+        stock_add.setVisible(true);
+        clear_table();
+        addDataToTable();
     }//GEN-LAST:event_add_stock_buttonActionPerformed
 
     private void update_price_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_price_buttonActionPerformed
@@ -177,7 +183,7 @@ public class StocksFrame extends javax.swing.JDialog {
 
     private void addDataToTable(){
         DefaultTableModel table = (DefaultTableModel)  stocks_table.getModel();
-        ArrayList<Stock> stockList = (ArrayList<Stock>) stock_controller.getAllStocks().data;
+        LinkedList<Stock> stockList = (LinkedList<Stock>) stock_controller.getAllStocks().data;
         for (Stock stock : stockList) {
             table.addRow(new Object[]{stock.getName(),stock.getPrice().getAmount()});
         }
