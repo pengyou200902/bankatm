@@ -110,13 +110,15 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     private void view_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_reportActionPerformed
         // TODO add your handling code here:
-        
+        ViewTransaction transaction = new ViewTransaction(this,true);
+        transaction.setVisible(true);
         // Controller for viewing the todays transaction.
     }//GEN-LAST:event_view_reportActionPerformed
 
     private void View_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_customerActionPerformed
         // TODO add your handling code here:
-        
+        ViewCustomer cus = new ViewCustomer(this,true);
+        cus.setVisible(true);
         //Controller to view all the user of the bank
     }//GEN-LAST:event_View_customerActionPerformed
 
