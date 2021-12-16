@@ -1,6 +1,8 @@
 package view;
 
-import java.awt.Color;
+import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -43,7 +45,7 @@ public class StocksFrame extends javax.swing.JDialog {
         stocks_table = new javax.swing.JTable();
         remove_stock_button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         add_stock_button.setText("Add Stock");
         add_stock_button.addActionListener(new java.awt.event.ActionListener() {
@@ -61,12 +63,12 @@ public class StocksFrame extends javax.swing.JDialog {
 
         stocks_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Stock Name", "Currency Type","Stock Price"
+                "Stock Name","Stock Price"
             }
         ));
         stocks_panel.setViewportView(stocks_table);
@@ -139,12 +141,15 @@ public class StocksFrame extends javax.swing.JDialog {
     private void add_stock_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_stock_buttonActionPerformed
         // TODO add your handling code here:
         ManagerStockAddFrame stock_add = new ManagerStockAddFrame(this,true);
-        stock_add.setVisible(true);
     }//GEN-LAST:event_add_stock_buttonActionPerformed
 
     private void update_price_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_price_buttonActionPerformed
         // TODO add your handling code here:
-        
+        UpdateStock update_stock = new UpdateStock(this,true);
+        update_stock.setVisible(true);
+        clear_table();
+        addDataToTable();
+//        Updatetable(update_stock.getStock());
     }//GEN-LAST:event_update_price_buttonActionPerformed
 
       private void remove_data_from_table(int row){
@@ -169,6 +174,26 @@ public class StocksFrame extends javax.swing.JDialog {
         }
 
     }
+
+    private void addDataToTable(){
+        DefaultTableModel table = (DefaultTableModel)  stocks_table.getModel();
+        ArrayList<Stock> stockList = (ArrayList<Stock>) stock_controller.getAllStocks().data;
+        for (Stock stock : stockList) {
+            table.addRow(new Object[]{stock.getName(),stock.getPrice().getAmount()});
+        }
+    }
+
+    private void Updatetable(Stock stock){
+        DefaultTableModel table = (DefaultTableModel)  stocks_table.getModel();
+        table.addRow(new Object[]{stock.getName(),stock.getPrice()});
+    }
+
+    private void clear_table(){
+        DefaultTableModel table = (DefaultTableModel)  stocks_table.getModel();
+        for (int i = table.getRowCount() - 1; i >= 0; i--) {
+            table.removeRow(i);
+        }
+   }
     /**
      * @param args the command line arguments
      */
