@@ -161,8 +161,8 @@ public class UserFrame extends javax.swing.JDialog {
     private void account_view_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_account_view_buttonActionPerformed
         // TODO add your handling code here:
         int row_selected = account_table.getSelectedRow();
-        String acc_type = (String) account_table.getValueAt(row_selected, 0);
-        int account_number = (int) account_table.getValueAt(row_selected, 1);
+        String acc_type = ((AccountTypes) account_table.getValueAt(row_selected, 0)).getTypeString();
+        String account_number = (String) account_table.getValueAt(row_selected, 1);
         BankAccount[] user_acc = bank_account_controller.getAllBankAccounts(this.user.getUsername());
 
         if (acc_type.equalsIgnoreCase(AccountTypes.SECURITY.getTypeString())) {
@@ -190,11 +190,10 @@ public class UserFrame extends javax.swing.JDialog {
 
     private void remove_account(int row) {
         String account_number = (String) account_table.getValueAt(row, 1);
-        String type = (String) account_table.getValueAt(row, 0);
+        String type = ((AccountTypes) account_table.getValueAt(row, 0)).getTypeString();
         // Add get_account by account number in bank account controller class.
         BankAccount account_to_remove = (BankAccount) bank_account_controller.getAccountByNumber(account_number).data;
 
-        // TODO
         bank_account_controller.closeAccount(account_to_remove);
 
     }
@@ -208,9 +207,15 @@ public class UserFrame extends javax.swing.JDialog {
     private void addDataToTable(){
         DefaultTableModel table = (DefaultTableModel)  account_table.getModel();
         this.accounts = bank_account_controller.getAllBankAccounts(this.user.getUsername());
-        for (BankAccount acc : this.accounts) {
-            table.addRow(new Object[]{acc.getType(),acc.getAccountNumber()});
-        }
+        Checking checking = (Checking) this.accounts[0];
+        Saving saving = (Saving) this.accounts[1];
+        Security security = (Security) this.accounts[2];
+        if (checking != null)
+            table.addRow(new Object[]{checking.getType(),checking.getAccountNumber()});
+        if (saving != null)
+            table.addRow(new Object[]{saving.getType(),saving.getAccountNumber()});
+        if (security != null)
+            table.addRow(new Object[]{security.getType(),security.getAccountNumber()});
     }
 
     /**

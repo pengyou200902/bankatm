@@ -43,9 +43,10 @@ public class AddAccount extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         account_type_box = new javax.swing.JComboBox<>();
         submitButton = new javax.swing.JButton();
-        CancelButton = new javax.swing.JButton();
+//        CancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
         getContentPane().setLayout(new java.awt.GridLayout(2, 2));
 
         jLabel1.setText("Account Type");
@@ -61,33 +62,32 @@ public class AddAccount extends javax.swing.JDialog {
             }
         });
         getContentPane().add(submitButton);
-
-        CancelButton.setText("Cancel");
-        CancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CancelButton);
+//        CancelButton.setText("Cancel");
+//        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                CancelButtonActionPerformed(evt);
+//            }
+//        });
+//        getContentPane().add(CancelButton);
 
         pack();
     }// </editor-fold>
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if (account_type_box.getSelectedItem().toString() == "savings"){
+        if (account_type_box.getSelectedItem().toString().equalsIgnoreCase(AccountTypes.SAVING.getTypeString())){
             // Call the account creation controller
-            bank_account_controller.openAccount(this.user.getUsername(),"savings");
+            bank_account_controller.openAccount(this.user.getUsername(), AccountTypes.SAVING.getTypeString());
 
         }
-        if (account_type_box.getSelectedItem().toString() == "checking"){
+        if (account_type_box.getSelectedItem().toString().equalsIgnoreCase(AccountTypes.CHECKING.getTypeString())){
             // Call the account creation controller
-            bank_account_controller.openAccount(this.user.getUsername(),"checking");
+            bank_account_controller.openAccount(this.user.getUsername(), AccountTypes.CHECKING.getTypeString());
 
         }
-        if (account_type_box.getSelectedItem().toString() == "security"){
+        if (account_type_box.getSelectedItem().toString().equalsIgnoreCase(AccountTypes.SECURITY.getTypeString())){
             // Call the account creation controller
-            bank_account_controller.openAccount(this.user.getUsername(),"checking");
+            bank_account_controller.openAccount(this.user.getUsername(), AccountTypes.SECURITY.getTypeString());
 
         }
 
@@ -142,7 +142,7 @@ public class AddAccount extends javax.swing.JDialog {
 //    }
 
     // Variables declaration - do not modify
-    private javax.swing.JButton CancelButton;
+//    private javax.swing.JButton CancelButton;
     private javax.swing.JComboBox<String> account_type_box;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton submitButton;
