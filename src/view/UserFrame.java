@@ -184,7 +184,6 @@ public class UserFrame extends javax.swing.JDialog {
         table.removeRow(row);
     }
 
-
     private void remove_account(int row) {
         String account_number = (String) account_table.getValueAt(row, 1);
         String type = (String) account_table.getValueAt(row, 0);
