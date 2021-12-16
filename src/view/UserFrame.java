@@ -12,6 +12,8 @@ import controller.*;
 import model.*;
 
 import java.awt.*;
+import java.util.List;
+import javax.swing.*;
 import javax.swing.table.*;
 
 public class UserFrame extends javax.swing.JDialog {
@@ -26,6 +28,8 @@ public class UserFrame extends javax.swing.JDialog {
         this.user = user;
         bank_account_controller = new BankAccountController();
         initComponents();
+        clear_table();
+        addDataToTable();
 //        User_frame.getContentPane().setBackground(Color.BLUE);
         jPanel1.setBackground(Color.GREEN);
         setLocationRelativeTo(null);
@@ -48,7 +52,7 @@ public class UserFrame extends javax.swing.JDialog {
         account_table = new javax.swing.JTable();
         account_view_button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         add_account_button.setText("Add Account");
         add_account_button.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +142,8 @@ public class UserFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
         AddAccount acc = new AddAccount(this, true, this.user);
         acc.setVisible(true);
-        this.accounts = acc.get_bank_accounts();
-        add_data_to_table();
+        clear_table();
+        addDataToTable();
 
     }//GEN-LAST:event_add_account_buttonActionPerformed
 
@@ -193,6 +197,20 @@ public class UserFrame extends javax.swing.JDialog {
         // TODO
         bank_account_controller.closeAccount(account_to_remove);
 
+    }
+    private void clear_table(){
+        DefaultTableModel table = (DefaultTableModel)  account_table.getModel();
+        for (int i = table.getRowCount() - 1; i >= 0; i--) {
+            table.removeRow(i);
+        }
+    }
+
+    private void addDataToTable(){
+        DefaultTableModel table = (DefaultTableModel)  account_table.getModel();
+        this.accounts = bank_account_controller.getAllBankAccounts(this.user.getUsername());
+        for (BankAccount acc : this.accounts) {
+            table.addRow(new Object[]{acc.getType(),acc.getAccountNumber()});
+        }
     }
 
     /**
