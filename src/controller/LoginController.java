@@ -18,6 +18,11 @@ public class LoginController {
     private UserDao userDao;
     private AccountDao accountDao;
 
+    public LoginController() {
+        this.userDao = UserDao.getInstance();
+        this.accountDao = AccountDao.getInstance();
+    }
+
     public OpResponse getAllUsers() {
         List<User> users = userDao.getAll();
         return new OpResponse(1, true, "Success", users);
