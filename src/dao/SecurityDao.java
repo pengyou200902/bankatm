@@ -35,6 +35,10 @@ public class SecurityDao implements BaseDao<Security, String> {
             if (!ConnectionManager.getInstance().tableExists(tableName)) {
                 createTable();
             }
+
+            if(getByUsername("admin") == null) {
+                save(new Security("admin", "SEC00123454"));
+            }
         } catch (SQLException e) {
             //e.printStackTrace();
         }

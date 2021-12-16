@@ -30,6 +30,10 @@ public class AccountDao implements BaseDao<Account, String> {
             if (!ConnectionManager.getInstance().tableExists(tableName)) {
                 createTable();
             }
+
+            if(getById("admin") == null) {
+                save(new Account("admin", "admin", "MANAGER"));
+            }
         } catch (SQLException e) {
             //e.printStackTrace();
         }

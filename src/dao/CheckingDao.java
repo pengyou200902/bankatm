@@ -30,6 +30,10 @@ public class CheckingDao implements BaseDao<Checking, String> {
             if (!ConnectionManager.getInstance().tableExists(tableName)) {
                 createTable();
             }
+
+            if(getByUsername("admin") == null) {
+                save(new Checking("admin", "CHE00123454"));
+            }
         } catch (SQLException e) {
             //e.printStackTrace();
         }
