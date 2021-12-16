@@ -78,7 +78,7 @@ public class StockController {
 //        String stockName = stock.getName();
         Stock real = stockDao.getById(stockName);
         BaseCurrency curPrice = real.getPrice();
-        if (account.isEnabled() && real != null && quantity > 0) {
+        if (account.isEnabled() && real != null && real.isEnabled() && quantity > 0) {
             BaseCurrency cost = new BaseCurrency(real.getPrice().getName(), real.getPrice().getAmount());
             cost.setAmount(cost.getAmount() * quantity / (1 - ChargeConfig.STOCK_INTEREST));
             if (account.getBalance().getAmount() < cost.getAmount()) {
@@ -108,7 +108,11 @@ public class StockController {
 //        String stockName = stock.getName();
         Stock real = stockDao.getById(stockName);
         BaseCurrency curPrice = real.getPrice();
-        if (!account.isEnabled() || real == null || quantity == 0 || quantity > account.getOwned().getOrDefault(real, 0)) {
+        if (!account.isEnabled()
+                || real == null
+                || !real.isEnabled()
+                || quantity == 0
+                || quantity > account.getOwned().getOrDefault(real, 0)) {
             return new OpResponse(0, false, "Failed to sell! Error in the request.");
         }
         BaseCurrency realPrice = new BaseCurrency(real.getPrice().getName(), real.getPrice().getAmount());
