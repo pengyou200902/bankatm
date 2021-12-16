@@ -16,6 +16,7 @@ import model.Stock;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StockController {
@@ -27,6 +28,12 @@ public class StockController {
         stockDao = StockDao.getInstance();
         securityDao = SecurityDao.getInstance();
         bankAccountController = new BankAccountController();
+    }
+
+    public OpResponse getAllStocks() {
+        List<Stock> stocks = stockDao.getAll();
+        if (stocks.size() == 0) return new OpResponse(1, true, "No stocks yet!", null);
+        return new OpResponse(1, true, "Succeed!", stocks);
     }
 
     public OpResponse updateStock(String stockName, double price, boolean enabled) {

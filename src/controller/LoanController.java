@@ -25,6 +25,18 @@ public class LoanController {
         loanDao = LoanDao.getInstance();
     }
 
+    public OpResponse getAllLoans() {
+        List<Loan> loans = loanDao.getAll();
+        if (loans.size() == 0)  return new OpResponse(1, true, "No loans yet!", null);
+        return new OpResponse(1, true, "Succeed!", loans);
+    }
+
+    public OpResponse getAccountLoan(String accountNumber) {
+        List<Loan> loans = loanDao.getByAccountNumber(accountNumber);
+        if (loans.size() == 0)  return new OpResponse(1, true, "No loans for this account yet!", null);
+        return new OpResponse(1, true, "Succeed!", loans);
+    }
+
     public OpResponse applyLoan(Checking account, BaseCurrency loanAmount) {
         if (account == null || loanAmount == null
                 || loanAmount.getAmount() <= 0) {
