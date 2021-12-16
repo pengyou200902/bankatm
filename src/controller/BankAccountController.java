@@ -14,7 +14,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class BankAccountController {
-    // TODO: record transactions
 
     private final CheckingDao checkingDao;
     private final SavingDao savingDao;
@@ -36,9 +35,9 @@ public class BankAccountController {
 
     public BankAccount[] getAllBankAccounts(String username) {
         return new BankAccount[] {
-                checkingDao.getById(username),
-                savingDao.getById(username),
-                securityDao.getById(username)
+                checkingDao.getByUsername(username),
+                savingDao.getByUsername(username),
+                securityDao.getByUsername(username)
         };
     }
 
