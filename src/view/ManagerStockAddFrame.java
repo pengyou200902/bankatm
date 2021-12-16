@@ -19,6 +19,7 @@ public class ManagerStockAddFrame extends javax.swing.JDialog {
      */
     public ManagerStockAddFrame(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
+        stock_controller = new StockController();
         initComponents();
     }
 

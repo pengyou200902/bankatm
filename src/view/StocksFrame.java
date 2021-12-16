@@ -43,7 +43,7 @@ public class StocksFrame extends javax.swing.JDialog {
         stocks_table = new javax.swing.JTable();
         remove_stock_button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         add_stock_button.setText("Add Stock");
         add_stock_button.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +139,7 @@ public class StocksFrame extends javax.swing.JDialog {
     private void add_stock_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_stock_buttonActionPerformed
         // TODO add your handling code here:
         ManagerStockAddFrame stock_add = new ManagerStockAddFrame(this,true);
+        stock_add.setVisible(true);
     }//GEN-LAST:event_add_stock_buttonActionPerformed
 
     private void update_price_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_price_buttonActionPerformed
