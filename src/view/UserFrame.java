@@ -14,7 +14,7 @@ import model.*;
 import java.awt.*;
 import javax.swing.table.*;
 
-public class UserFrame extends javax.swing.JFrame {
+public class UserFrame extends javax.swing.JDialog {
     private BankAccountController bank_account_controller;
     private BankAccount[] accounts;
     private User user;

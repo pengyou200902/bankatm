@@ -21,7 +21,7 @@ public class UserAccount extends javax.swing.JFrame {
     private BankAccount user_bank_account;
     private BankAccountController bank_account_controller;
 
-    public UserAccount(java.awt.Frame parent, boolean modal, BankAccount acc) {
+    public UserAccount(javax.swing.JDialog parent, boolean modal, BankAccount acc) {
         this.user_bank_account = acc;
         this.bank_account_controller = new BankAccountController();
         initComponents();

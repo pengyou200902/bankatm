@@ -107,10 +107,12 @@ public class LoginPage extends javax.swing.JFrame {
         if (user != null){
             if(username.equalsIgnoreCase("admin")){
               ManagerFrame manager = new ManagerFrame();
+              this.setVisible(false);
               manager.setVisible(true);
             }
             else{
                 UserFrame user_main_menu = new UserFrame(user);
+                this.setVisible(false);
                 user_main_menu.setVisible(true);
             }
         }
@@ -124,6 +126,7 @@ public class LoginPage extends javax.swing.JFrame {
     private void change_password_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_change_password_buttonActionPerformed
         // TODO add your handling code here:
         PasswordChange change_password_frame = new PasswordChange();
+        change_password_frame.setLocationRelativeTo(null);
         change_password_frame.setVisible(true);
     }//GEN-LAST:event_change_password_buttonActionPerformed
 

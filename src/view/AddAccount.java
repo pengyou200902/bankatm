@@ -20,7 +20,7 @@ public class AddAccount extends javax.swing.JDialog {
     /**
      * Creates new form Add_account
      */
-    public AddAccount(java.awt.Frame parent, boolean modal, User user) {
+    public AddAccount(javax.swing.JDialog parent, boolean modal, User user) {
         super(parent, modal);
         this.user = user;
         this.bank_account_controller = new BankAccountController();
