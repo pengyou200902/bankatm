@@ -111,15 +111,17 @@ public class BankAccountController {
     }
 
     public <T extends BankAccount> OpResponse closeAccount(T account) {
-        boolean status;
+        boolean status = true;
         Object data = null;
         if (account instanceof Checking) {
             status = checkingDao.delete((Checking) account);
             data = account;
         }
         else { // saving && security
-            Security security = securityDao.getById(account.getUsername());
-            status = savingDao.delete((Saving) account) && securityDao.delete(security);
+            Security security = securityDao.getByUsername(account.getUsername());
+            Saving saving = savingDao.getByUsername(account.getUsername());
+            if (security != null)   status = status && securityDao.delete(security);
+            if (saving != null)   status = status && savingDao.delete(saving);
             data = new Object[]{account, security};
         }
         if (status) {
@@ -261,14 +263,15 @@ public class BankAccountController {
     }
 
     private <A extends BankAccount, T extends BaseDao<A, String>> String generateAccountNumber(T dao) {
-        String accountNumber;
+//        String accountNumber;
+//
+//        // generate random accountNumber
+//        do {
+//            accountNumber = String.valueOf(random.nextLong());
+//        } while (dao.getById(accountNumber) == null);
 
-        // generate random accountNumber
-        do {
-            accountNumber = String.valueOf(random.nextLong());
-        } while (dao.getById(accountNumber) == null);
-
-        return accountNumber;
+        return String.valueOf(System.nanoTime());
+//        return accountNumber;
     }
 
     private <T extends BankAccount> boolean updateAccount(T account) {
