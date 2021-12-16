@@ -33,28 +33,45 @@ public class StockController {
         Stock real = stockDao.getById(stockName);
         if (real == null)   return new OpResponse(0, false, "No such stock.");
 
-        real.getPrice().setAmount(price);
+        BaseCurrency realPrice = real.getPrice();
+        if (realPrice.getAmount() == price && real.isEnabled() == enabled) {
+            return new OpResponse(1, true, "Nothing changes", real);
+        }
+
+        StringBuilder stringBuilder = new StringBuilder("Stock updates.");
+        // true -> false
+        if (real.isEnabled() && !enabled) {
+            stringBuilder.append(" Stock is disabled.");
+        }
+        // false -> true
+        else if (!real.isEnabled() && enabled) {
+            stringBuilder.append(" Stock is enabled.");
+        }
         real.setEnabled(enabled);
+        real.getPrice().setAmount(price);
         stockDao.update(real);
-        return new OpResponse(1, true, "Stock disabled", real);
+
+        return new OpResponse(1, true, stringBuilder.toString(), real);
     }
 
     public OpResponse addStock(String stockName, double price) {
         Stock real = stockDao.getById(stockName);
-        if (real != null)   return new OpResponse(1, true, "Stock is already in the list");
+        if (real != null)   return new OpResponse(1, true, "Stock is already in the list.");
 
         real = new Stock(stockName, price, true);
         stockDao.save(real);
-        return new OpResponse(1, true, "Stock added", real);
+        return new OpResponse(1, true, "Stock is added.", real);
     }
 
     public OpResponse removeStock(String stockName) {
         Stock real = stockDao.getById(stockName);
         if (real == null)   return new OpResponse(1, true, "No such stock.");
 
+//        stockDao.update(real);
+        stockDao.delete(real);
+        // before returning it, set the enabled to false
         real.setEnabled(false);
-        stockDao.update(real);
-        return new OpResponse(1, true, "Stock disabled", real);
+        return new OpResponse(1, true, "Stock removed.", real);
     }
 
     public OpResponse buyStock(Security account, String stockName, int quantity) {
