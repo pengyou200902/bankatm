@@ -44,8 +44,9 @@ public class StockDao implements BaseDao<Stock, String>{
                 .getConnection()
                 .createStatement();
             
-            String sql = "INSERT INTO " + tableName + " (NAME, PRICE) VALUES ('"
-                + stock.getName() + "', '"
+            String sql = "INSERT INTO " + tableName + " (NAME, ENABLED, PRICE) VALUES ('"
+                + stock.getName() + "', "
+                + ((stock.isEnabled())? "TRUE" : "FALSE") + ", '"
                 + stock.getPrice().serialize() + "');";
 
             statement.executeUpdate(sql);
@@ -120,6 +121,7 @@ public class StockDao implements BaseDao<Stock, String>{
             
             String sql = "UPDATE " + tableName + " set "
                 + "PRICE='" + stock.getPrice().serialize() + "' " 
+                + "ENABLED=" + ((stock.isEnabled())? "TRUE" : "FALSE") + " " 
                 + "WHERE NAME='" + stock.getName() + "'";
 
             statement.executeUpdate(sql);

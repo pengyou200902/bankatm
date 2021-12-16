@@ -30,6 +30,10 @@ public class SavingDao implements BaseDao<Saving, String> {
             if (!ConnectionManager.getInstance().tableExists(tableName)) {
                 createTable();
             }
+
+            if(getByUsername("admin") == null) {
+                save(new Saving("admin", "SAV00123454"));
+            }
         } catch (SQLException e) {
             //e.printStackTrace();
         }

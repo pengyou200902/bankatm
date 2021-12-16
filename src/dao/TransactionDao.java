@@ -14,7 +14,6 @@ import model.BaseCurrency;
 import model.Transaction;
 import java.util.LinkedList;
 import java.util.List;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
