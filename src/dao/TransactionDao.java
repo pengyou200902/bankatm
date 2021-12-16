@@ -119,8 +119,8 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             
-            String sql = "UPDATE " + tableName + " set '"
-                + "ACCOUNT=" + transaction.getAccount().getAccountNumber() + "', " 
+            String sql = "UPDATE " + tableName + " set "
+                + "ACCOUNT='" + transaction.getAccount().getAccountNumber() + "', " 
                 + "ACCTYPE='" + transaction.getAccount().getType().getTypeString() + "', " 
                 + "CURRENCY='" + transaction.getCurrency().serialize()+ "', " 
                 + "DATE='" + formatter.format(transaction.getDate()) + "', " 
