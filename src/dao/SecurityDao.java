@@ -243,8 +243,8 @@ public class SecurityDao implements BaseDao<Security, String> {
             String name = slices[0], currency = slices[1];
             Double currValue = Double.parseDouble(slices[2]); 
             Integer value = Integer.parseInt(slices[3]);
-
             Stock stock = StockDao.getInstance().getById(name);
+            
             stock.setPrice(new BaseCurrency(currency, currValue));
             hashMap.put(stock, value);
         }
