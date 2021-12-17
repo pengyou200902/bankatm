@@ -1,7 +1,10 @@
 package view;
 import controller.*;
 import model.*;
+
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,14 +22,18 @@ public class UserAccount extends javax.swing.JFrame {
      * Creates new form user_account
      */
     private BankAccount user_bank_account;
+    private String account_type;
     private BankAccountController bank_account_controller;
 
-    public UserAccount(javax.swing.JDialog parent, boolean modal, BankAccount acc) {
+    public UserAccount(javax.swing.JDialog parent, boolean modal, BankAccount acc, String acc_type) {
         this.user_bank_account = acc;
         this.bank_account_controller = new BankAccountController();
+        this.account_type = acc_type;
         initComponents();
         setLocationRelativeTo(parent);
         panel1.setBackground(Color.GREEN);
+        clear_table();
+        addDataToTable();
     }
 
 //    public user_account(User_frame aThis, boolean b) {
@@ -51,6 +58,7 @@ public class UserAccount extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         accounts_table = new javax.swing.JTable();
         transfer_money_button = new javax.swing.JButton();
+        apply_loan_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,12 +77,12 @@ public class UserAccount extends javax.swing.JFrame {
         });
 
         accounts_table.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
+                new Object [][] {
                         {null, null},
                         {null, null},
                         {null, null}
                 },
-                new String[]{
+                new String [] {
                         "Currency Type", "Balance"
                 }
         ));
@@ -88,22 +96,31 @@ public class UserAccount extends javax.swing.JFrame {
             }
         });
 
+        apply_loan_button.setText("Apply Loan");
+        apply_loan_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apply_loan_buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
+                                .addGap(26, 26, 26)
                                 .addComponent(withdraw_button)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deposit_button)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(transfer_money_button)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(apply_loan_button)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                .addContainerGap(48, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35))
+                                .addGap(51, 51, 51))
         );
         panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,10 +129,11 @@ public class UserAccount extends javax.swing.JFrame {
                                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(withdraw_button)
                                         .addComponent(deposit_button)
-                                        .addComponent(transfer_money_button))
-                                .addGap(18, 18, 18)
+                                        .addComponent(transfer_money_button)
+                                        .addComponent(apply_loan_button))
+                                .addGap(29, 29, 29)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(229, Short.MAX_VALUE))
+                                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,7 +148,7 @@ public class UserAccount extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        /editor-fold>//GEN-END:initComponents
 
     private void withdraw_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdraw_buttonActionPerformed
         // TODO add your handling code here:
@@ -141,7 +159,10 @@ public class UserAccount extends javax.swing.JFrame {
             WithdrawFrame withdraw = new WithdrawFrame(this, true, this.user_bank_account, currency_type, balance);
             withdraw.setVisible(true);
 
-        }//GEN-LAST:event_withdraw_buttonActionPerformed
+        }
+        //GEN-LAST:event_withdraw_buttonActionPerformed
+        clear_table();
+        addDataToTable();
     }
         private void deposit_buttonActionPerformed (java.awt.event.ActionEvent evt)
         {//GEN-FIRST:event_deposit_buttonActionPerformed
@@ -150,6 +171,8 @@ public class UserAccount extends javax.swing.JFrame {
             DepositMoneyFrame deposit_frame = new DepositMoneyFrame(this, true, this.user_bank_account);
             // Update the table
             deposit_frame.setVisible(true);
+            clear_table();
+            addDataToTable();
 
 
         }//GEN-LAST:event_deposit_buttonActionPerformed
@@ -159,7 +182,52 @@ public class UserAccount extends javax.swing.JFrame {
             // TODO add your handling code here:
             TransferMoneyFrame frame = new TransferMoneyFrame(this, true, this.user_bank_account);
             frame.setVisible(true);
+            clear_table();
+            addDataToTable();
         }//GEN-LAST:event_transfer_money_buttonActionPerformed
+
+        private void apply_loan_buttonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        if(this.user_bank_account.getType().equals(AccountTypes.CHECKING)){
+            LoanForm frame = new LoanForm(this,true,this.user_bank_account);
+            frame.setVisible(true);
+            clear_table();
+            addDataToTable();
+        }
+        else{
+            javax.swing.JOptionPane.showMessageDialog(this, "Only Checking account can apply for loan", "Warning",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void clear_table(){
+        DefaultTableModel table = (DefaultTableModel)  accounts_table.getModel();
+        for (int i = table.getRowCount() - 1; i >= 0; i--) {
+            table.removeRow(i);
+        }
+    }
+
+    private void addDataToTable(){
+        DefaultTableModel table = (DefaultTableModel)  accounts_table.getModel();
+//        this.accounts = bank_account_controller.getAllBankAccounts(this.user.getUsername());
+//        Checking checking = (Checking) this.accounts[0];
+//        Saving saving = (Saving) this.accounts[1];
+//        Security security = (Security) this.accounts[2];
+
+        if(this.account_type.equalsIgnoreCase("CHECKING")){
+
+            Checking bank_account = (Checking) this.user_bank_account;
+            List<BaseCurrency> currencyList = bank_account.getCurrencies();
+            for(BaseCurrency crr : currencyList){
+                table.addRow(new Object[]{crr.getName(),crr.getAmount()});
+            }
+        }
+        else{
+            Saving bank_account = (Saving) this.user_bank_account;
+            BaseCurrency crr = bank_account.getBalance();
+            table.addRow(new Object[]{crr.getName(),crr.getAmount()});
+        }
+        }
 
         /**
          * @param args the command line arguments
@@ -206,10 +274,12 @@ public class UserAccount extends javax.swing.JFrame {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JTable accounts_table;
+        private javax.swing.JButton apply_loan_button;
         private javax.swing.JButton deposit_button;
         private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JPanel panel1;
         private javax.swing.JButton transfer_money_button;
         private javax.swing.JButton withdraw_button;
+
         // End of variables declaration//GEN-END:variables
 }
