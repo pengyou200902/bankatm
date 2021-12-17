@@ -82,7 +82,7 @@ public class TransferMoneyFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
         String account_number = account_number_text.getText();
         BankAccount account_to_transfer = (BankAccount) bank_account_controller.getAccountByNumber(account_number).data;
-        String currency_type = "$";
+        String currency_type = "USD";
         double amount = Double.parseDouble(amount_text_field.getText());
         BaseCurrency crr = new BaseCurrency(currency_type,amount);
         OpResponse res;

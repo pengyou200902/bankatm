@@ -1,3 +1,6 @@
+# Design Doc
+**[Click Here](./Design.md)**
+
 # Database Setup
 
 - Install Docker Desktop for (Mac)[https://docs.docker.com/desktop/mac/install/]

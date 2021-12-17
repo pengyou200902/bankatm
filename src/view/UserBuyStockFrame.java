@@ -19,6 +19,7 @@ public class UserBuyStockFrame extends javax.swing.JDialog {
     private StockController stock_controller;
     public UserBuyStockFrame(java.awt.Frame parent, boolean modal, Security acc) {
         super(parent, modal);
+        this.stock_controller = new StockController();
         this.user_bank_account = acc;
         initComponents();
     }

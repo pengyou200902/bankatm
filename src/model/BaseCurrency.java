@@ -69,7 +69,7 @@ public class BaseCurrency {
     @Override
     public String toString() {
         return "Currency{" +
-                "name='" + name + '\'' +
+                "name=" + name +
                 ", amount=" + amount +
                 '}';
     }

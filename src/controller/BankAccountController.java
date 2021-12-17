@@ -180,6 +180,7 @@ public class BankAccountController {
             updateAccount(account);
             Transaction t = new Transaction(interestRate, account, currency, comment, date);
             transactionDao.save(t);
+            currency.setAmount(-currency.getAmount());
             return new OpResponse(1, true, "Withdraw Successfully!", account);
         }
         else return new OpResponse(0, false,  "Withdraw Failed!");

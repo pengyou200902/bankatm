@@ -28,11 +28,15 @@ public class StockController {
         stockDao = StockDao.getInstance();
         securityDao = SecurityDao.getInstance();
         bankAccountController = new BankAccountController();
+        List<Security> securities = securityDao.getAll();
+        for (Security security: securities) {
+            updateUnrealizedProfit(security);
+        }
     }
 
     public OpResponse getAllStocks() {
         List<Stock> stocks = stockDao.getAll();
-        if (stocks.size() == 0) return new OpResponse(1, true, "No stocks yet!", null);
+        if (stocks.size() == 0) return new OpResponse(1, true, "No stocks yet!", stocks);
         return new OpResponse(1, true, "Succeed!", stocks);
     }
 
@@ -55,9 +59,14 @@ public class StockController {
             stringBuilder.append(" Stock is enabled.");
         }
         real.setEnabled(enabled);
-        real.getPrice().setAmount(price);
-        stockDao.update(real);
-
+        if (real.getPrice().getAmount() != price) {
+            real.getPrice().setAmount(price);
+            stockDao.update(real);
+            List<Security> securities = securityDao.getAll();
+            for (Security security: securities) {
+                updateUnrealizedProfit(security);
+            }
+        }
         return new OpResponse(1, true, stringBuilder.toString(), real);
     }
 
@@ -149,9 +158,10 @@ public class StockController {
         HashMap<Stock, Integer> owned = account.getOwned();
 //        BaseCurrency price = getOldPrice(account, real);
 
-        int total = quantity + owned.get(real);
+        int amount = owned.getOrDefault(real, 0);
+        int total = quantity + amount;
         double oldAmount = oldPrice.getAmount();
-        double newAmount = (oldAmount * owned.get(real) + real.getPrice().getAmount() * quantity) / total;
+        double newAmount = (oldAmount * amount + real.getPrice().getAmount() * quantity) / total;
 //        oldPrice.setAmount(newAmount);
         return new BaseCurrency(oldPrice.getName(), newAmount);
     }
