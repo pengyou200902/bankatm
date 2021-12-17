@@ -56,9 +56,9 @@ public class LoanController {
         }
     }
 
-    public OpResponse reviewLoan(Account loginAccount, long loanId, int newStatus) {
-        if (loginAccount == null || !loginAccount.getType().equals("Manager") || newStatus < 0 || newStatus > 1) {
-            return new OpResponse(0, false, "No Authority!");
+    public OpResponse reviewLoan(long loanId, int newStatus) {
+        if (newStatus < 0 || newStatus > 1) {
+            return new OpResponse(0, false, "Invalid status!");
         }
         int id = (int) loanId;
         Loan loan = loanDao.getById(id);
