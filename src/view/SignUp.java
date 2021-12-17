@@ -130,11 +130,11 @@ public class SignUp extends javax.swing.JDialog {
         }
         
                 
-        if (password_text.getPassword().toString().isBlank()){
+        if (new String(password_text.getPassword()).isBlank()){
             errors.append("Password cannot be empty\n");
         }  
         else{
-            password = password_text.getPassword().toString();
+            password = new String(password_text.getPassword());
         } 
         
         if (errors.length()>0){

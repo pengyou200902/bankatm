@@ -128,9 +128,10 @@ public class ViewTransaction extends javax.swing.JDialog {
 
     private void addDataToTable(){
         DefaultTableModel table = (DefaultTableModel)  customer_table.getModel();
-        List<User> userList = (List<User>) transaction_controller.getAll().data;
-        for (User user : userList) {
-            table.addRow(new Object[]{user.getName(),user.getAddress(),user.getBirthday()});
+        List<Transaction> transactions = (List<Transaction>) transaction_controller.getAll().data;
+        for (Transaction t : transactions) {
+            table.addRow(new Object[]{t.getId(), t.getInterestRate(),t.getAccount().getAccountNumber(),t.getCurrency().getName(),
+            t.getCurrency().getAmount(), t.getComment(), t.getDate().toString()});
         }
     }
 

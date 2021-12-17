@@ -13,6 +13,9 @@ import java.awt.Color;
  */
 import controller.*;
 import model.*;
+
+import javax.swing.*;
+
 public class SecurityAccount extends javax.swing.JFrame {
 
     /**
@@ -50,7 +53,7 @@ public class SecurityAccount extends javax.swing.JFrame {
         total_realized_profit = new javax.swing.JLabel();
         total_unrealized_profit = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         buy_stock_button.setText("Buy Stock");
         buy_stock_button.addActionListener(new java.awt.event.ActionListener() {

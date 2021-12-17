@@ -2,6 +2,7 @@ package view;
 import controller.*;
 import model.*;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -60,7 +61,7 @@ public class UserAccount extends javax.swing.JFrame {
         transfer_money_button = new javax.swing.JButton();
         apply_loan_button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         withdraw_button.setText("Withdraw");
         withdraw_button.addActionListener(new java.awt.event.ActionListener() {
