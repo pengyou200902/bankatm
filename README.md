@@ -1,3 +1,11 @@
+# Team #15
+Adarsh Verma    BUID U08731047
+
+Osho Rawal      BUID U95297774
+
+You Peng        BUID U82384393
+
+
 # Design Doc
 **[Click Here](./Design.md)**
 

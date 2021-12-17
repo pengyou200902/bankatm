@@ -1,6 +1,15 @@
+# Team #15
+Adarsh Verma    BUID U08731047
+
+Osho Rawal      BUID U95297774
+
+You Peng        BUID U82384393
+
 # Abstract
 Our program uses Model-View-Controller(-DAO) architecture, combined with PostgreSQL.
 For DAO specifically, we use singleton.
+
+The advantages are obvious. We can easily split the work. It's easy to decouple.
 
 We first design the data structures(DB tables) for the objects that will appear in the program.
 The Models are created for different tables of the database. The Views are the GUIs
