@@ -138,20 +138,24 @@ public class StockController {
                 account, realPrice, date, String.format("Sell %d %s", quantity, real), ChargeConfig.STOCK_INTEREST);
 
         HashMap<Stock, Integer> owned = account.getOwned();
+
         BaseCurrency newPrice = averagePrice(account, real, getOldPrice(account, real), -quantity);
         double oldUnrealizedProfit = account.getUnrealizedProfit().getAmount();
-        double oldRealizedProfit = account.getUnrealizedProfit().getAmount();
+        double oldRealizedProfit = account.getRealizedProfit().getAmount();
         real.setPrice(newPrice);
         owned.put(real, owned.get(real) - quantity);
         updateUnrealizedProfit(account);
         // update realized profit
         double newUnrealizedProfit = account.getUnrealizedProfit().getAmount();
         account.getRealizedProfit().setAmount(oldRealizedProfit + oldUnrealizedProfit - newUnrealizedProfit);
+        if (owned.get(real) == 0) {
+            owned.remove(real);
+        }
         securityDao.update(account);
 
         // covert back the price
         real.setPrice(curPrice);
-        return new OpResponse(1, true, String.format("Sell %d %s", quantity, real));
+        return new OpResponse(1, true, String.format("Sell %d %s", quantity, real), account);
     }
 
     private BaseCurrency averagePrice(Security account, Stock real, BaseCurrency oldPrice, int quantity) {
