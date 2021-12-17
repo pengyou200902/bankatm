@@ -38,7 +38,7 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         username_textfield = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        password_textfield = new javax.swing.JTextField();
+        password_textfield = new javax.swing.JPasswordField();
         buttons_pannel = new javax.swing.JPanel();
         login_button = new javax.swing.JButton();
         change_password_button = new javax.swing.JButton();
@@ -101,7 +101,7 @@ public class LoginPage extends javax.swing.JFrame {
     private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
         // TODO add your handling code here:
         String username = username_textfield.getText();
-        String pass = password_textfield.getText();
+        String pass = password_textfield.getPassword().toString();
         User user = login_controller.login(username,pass);
 
         if (user != null){
@@ -178,7 +178,7 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton login_button;
     private javax.swing.JPanel login_pannel;
-    private javax.swing.JTextField password_textfield;
+    private javax.swing.JPasswordField password_textfield;
     private javax.swing.JButton sign_up_button;
     private javax.swing.JTextField username_textfield;
     // End of variables declaration//GEN-END:variables

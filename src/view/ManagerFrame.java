@@ -38,8 +38,9 @@ public class ManagerFrame extends javax.swing.JFrame {
         view_report = new javax.swing.JButton();
         manage_stocks = new javax.swing.JButton();
         View_customer = new javax.swing.JButton();
+        Review_Loan_button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         view_report.setText("View Report");
         view_report.addActionListener(new java.awt.event.ActionListener() {
@@ -62,45 +63,55 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
+        Review_Loan_button.setText("Review Loan");
+        Review_Loan_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Review_Loan_buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout manager_panelLayout = new javax.swing.GroupLayout(manager_panel);
         manager_panel.setLayout(manager_panelLayout);
         manager_panelLayout.setHorizontalGroup(
-            manager_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manager_panelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(view_report)
-                .addGap(18, 18, 18)
-                .addComponent(manage_stocks)
-                .addGap(18, 18, 18)
-                .addComponent(View_customer)
-                .addContainerGap(22, Short.MAX_VALUE))
+                manager_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(manager_panelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(view_report)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(manage_stocks)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(View_customer)
+                                .addGap(18, 18, 18)
+                                .addComponent(Review_Loan_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         manager_panelLayout.setVerticalGroup(
-            manager_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manager_panelLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(manager_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(view_report)
-                    .addComponent(manage_stocks)
-                    .addComponent(View_customer))
-                .addContainerGap(257, Short.MAX_VALUE))
+                manager_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(manager_panelLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(manager_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(view_report)
+                                        .addComponent(manage_stocks)
+                                        .addComponent(View_customer)
+                                        .addComponent(Review_Loan_button))
+                                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(manager_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(manager_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(manager_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(manager_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>
 
     private void manage_stocksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_stocksActionPerformed
         // TODO add your handling code here:
@@ -121,6 +132,12 @@ public class ManagerFrame extends javax.swing.JFrame {
         cus.setVisible(true);
         //Controller to view all the user of the bank
     }//GEN-LAST:event_View_customerActionPerformed
+
+    private void Review_Loan_buttonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        ReviewLoan loan_review = new ReviewLoan(this,true);
+        loan_review.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
@@ -157,7 +174,9 @@ public class ManagerFrame extends javax.swing.JFrame {
 //        });
 //    }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variable
+
+    private javax.swing.JButton Review_Loan_button;
     private javax.swing.JButton View_customer;
     private javax.swing.JButton manage_stocks;
     private javax.swing.JPanel manager_panel;
