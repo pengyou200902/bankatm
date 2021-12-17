@@ -3,7 +3,7 @@
 
 # Run
 
-- Just run the main function in Main.java
+- Open the project by IDEA best and run the main function in Main.java
 
 # Database Setup
 
