@@ -361,10 +361,12 @@ public class SecurityAccount extends javax.swing.JFrame {
 
     private Security user_bank_account;
     private StockController stock_account_controller;
+    private BankAccountController bankAccountController;
 
     public SecurityAccount(Security acc) {
         this.user_bank_account = acc;
         this.stock_account_controller = new StockController();
+        this.bankAccountController = new BankAccountController();
         initComponents();
         this.getContentPane().setBackground(Color.GREEN);
         jPanel1.setBackground(Color.GREEN);
@@ -419,7 +421,7 @@ public class SecurityAccount extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         buy_stock_button.setText("Buy Stock");
         buy_stock_button.addActionListener(new java.awt.event.ActionListener() {
@@ -590,6 +592,7 @@ public class SecurityAccount extends javax.swing.JFrame {
 
     private void addDataToTable(){
         DefaultTableModel table = (DefaultTableModel)  stock_table.getModel();
+        this.user_bank_account = (Security) bankAccountController.getAllBankAccounts(this.user_bank_account.getUsername())[2];
         HashMap<Stock, Integer> Stocks = this.user_bank_account.getOwned();
         Set<Stock> keys =  Stocks.keySet();
         for(Stock stock: keys){
