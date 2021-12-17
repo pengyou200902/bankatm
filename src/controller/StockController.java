@@ -32,7 +32,7 @@ public class StockController {
 
     public OpResponse getAllStocks() {
         List<Stock> stocks = stockDao.getAll();
-        if (stocks.size() == 0) return new OpResponse(1, true, "No stocks yet!", null);
+        if (stocks.size() == 0) return new OpResponse(1, true, "No stocks yet!", stocks);
         return new OpResponse(1, true, "Succeed!", stocks);
     }
 

@@ -27,7 +27,7 @@ public class LoanController {
 
     public OpResponse getAllLoans() {
         List<Loan> loans = loanDao.getAll();
-        if (loans.size() == 0)  return new OpResponse(1, true, "No loans yet!", null);
+        if (loans.size() == 0)  return new OpResponse(1, true, "No loans yet!", loans);
         return new OpResponse(1, true, "Succeed!", loans);
     }
 
