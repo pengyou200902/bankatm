@@ -56,7 +56,7 @@ public class DepositMoneyFrame extends javax.swing.JDialog {
         Currency_type_label.setText("Currency Type");
         getContentPane().add(Currency_type_label);
 
-        Currency_type_combox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "USD", "INR", "CNY"}));
+        Currency_type_combox.setModel(new javax.swing.DefaultComboBoxModel<>(CurrencyType.types));
         getContentPane().add(Currency_type_combox);
 
         Deposit_amount_label.setText("Deposit Amount");

@@ -4,6 +4,7 @@ import model.*;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -151,7 +152,7 @@ public class ReviewLoan extends javax.swing.JDialog {
     private void addDataToTable(){
         DefaultTableModel table = (DefaultTableModel)  loan_table.getModel();
         OpResponse res = this.loan_controller.getAllLoans();
-        List<Loan> loans = (ArrayList<Loan>) res.data;
+        List<Loan> loans = (LinkedList<Loan>) res.data;
         for(Loan loan : loans){
             table.addRow(new Object[]{loan.getId(),loan.getStatus(),loan.getAccount().getAccountNumber(),loan.getCurrency().getName(),loan.getCurrency().getAmount(),loan.getDate(),loan.getInterestRate()});
         }
