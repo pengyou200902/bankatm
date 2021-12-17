@@ -1,6 +1,10 @@
 # Design Doc
 **[Click Here](./Design.md)**
 
+# Run
+
+- Just run the main function in Main.java
+
 # Database Setup
 
 - Install Docker Desktop for (Mac)[https://docs.docker.com/desktop/mac/install/]

@@ -1,12 +1,26 @@
 # Abstract
 Our program uses Model-View-Controller(-DAO) architecture, combined with PostgreSQL.
-For DAO especially, we use singleton.
+For DAO specifically, we use singleton.
 
 We first design the data structures(DB tables) for the objects that will appear in the program.
 The Models are created for different tables of the database. The Views are the GUIs
 for users to interact with. The Controllers are responsible for the logical processes
 of data. The DAOs are responsible for communicating with the database, retrieving or 
 updating the data.
+
+## UMLs
+
+### Models
+![uml_model](./uml_model.png)
+
+### Controllers
+![uml_controller](./uml_controller.png)
+
+### DAOs
+![uml_dao](./uml_dao.png)
+
+### Views
+![uml_view](./uml_view.png)
 
 ## Models
 ```AccountTypes.java```          The types for BankAccount.
