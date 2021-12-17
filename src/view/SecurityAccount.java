@@ -1,7 +1,8 @@
 package view;
 
 import java.awt.Color;
-
+import java.util.HashMap;
+import java.util.*;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -15,6 +16,7 @@ import controller.*;
 import model.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class SecurityAccount extends javax.swing.JFrame {
 
@@ -22,13 +24,19 @@ public class SecurityAccount extends javax.swing.JFrame {
      * Creates new form User_stocks
      */
     private Security user_bank_account;
-    private BankAccountController bank_account_controller;
+    private StockController stock_account_controller;
+
     public SecurityAccount(Security acc) {
         this.user_bank_account = acc;
-        this.bank_account_controller = new BankAccountController();
+        this.stock_account_controller = new StockController();
         initComponents();
         this.getContentPane().setBackground(Color.GREEN);
         jPanel1.setBackground(Color.GREEN);
+        clear_table();
+        addDataToTable();
+        setTotal_balance_label();
+        setTotal_realized_profit_label();
+        setTotal_unrealized_profit_label();
     }
 
     /**
@@ -43,7 +51,7 @@ public class SecurityAccount extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         buy_stock_button = new javax.swing.JButton();
         sell_stock_button = new javax.swing.JButton();
-        add_balance_button = new javax.swing.JButton();
+//        add_balance_button = new javax.swing.JButton();
         total_balance_label = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         stock_table = new javax.swing.JTable();
@@ -69,23 +77,23 @@ public class SecurityAccount extends javax.swing.JFrame {
             }
         });
 
-        add_balance_button.setText("Add Balance");
-        add_balance_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_balance_buttonActionPerformed(evt);
-            }
-        });
+//        add_balance_button.setText("Add Balance");
+//        add_balance_button.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                add_balance_buttonActionPerformed(evt);
+//            }
+//        });
 
         total_balance_label.setText("Total Balance");
 
         stock_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Stock Name","Quantity","AVG Buy Price", "Unrealized Profit"
+                "Stock Name","Quantity","AVG Buy Price"
             }
         ));
         jScrollPane1.setViewportView(stock_table);
@@ -106,7 +114,7 @@ public class SecurityAccount extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(sell_stock_button)
                         .addGap(18, 18, 18)
-                        .addComponent(add_balance_button))
+                        )
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +141,7 @@ public class SecurityAccount extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buy_stock_button)
                     .addComponent(sell_stock_button)
-                    .addComponent(add_balance_button))
+                    )
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(total_balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,18 +183,59 @@ public class SecurityAccount extends javax.swing.JFrame {
         // TODO add your handling code here:
         UserSellStockFrame sell_stock_frame = new UserSellStockFrame(this,true,this.user_bank_account);
         sell_stock_frame.setVisible(true);
+        setTotal_balance_label();
+        setTotal_realized_profit_label();
+        setTotal_unrealized_profit_label();
+        clear_table();
+        addDataToTable();
     }//GEN-LAST:event_sell_stock_buttonActionPerformed
 
     private void buy_stock_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buy_stock_buttonActionPerformed
         // TODO add your handling code here:
         UserBuyStockFrame buy_stock_frame = new UserBuyStockFrame(this,true, this.user_bank_account);
         buy_stock_frame.setVisible(true);
+        setTotal_balance_label();
+        setTotal_realized_profit_label();
+        setTotal_unrealized_profit_label();
+        clear_table();
+        addDataToTable();
     }//GEN-LAST:event_buy_stock_buttonActionPerformed
 
-    private void add_balance_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_balance_buttonActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_add_balance_buttonActionPerformed
+//    private void add_balance_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_balance_buttonActionPerformed
+//        // TODO add your handling code here:
+//
+//    }//GEN-LAST:event_add_balance_buttonActionPerformed
+
+    private void clear_table(){
+        DefaultTableModel table = (DefaultTableModel)  stock_table.getModel();
+        for (int i = table.getRowCount() - 1; i >= 0; i--) {
+            table.removeRow(i);
+        }
+    }
+
+    private void addDataToTable(){
+        DefaultTableModel table = (DefaultTableModel)  stock_table.getModel();
+        HashMap<Stock, Integer> Stocks = this.user_bank_account.getOwned();
+        Set<Stock> keys =  Stocks.keySet();
+        for(Stock stock: keys){
+            int value = Stocks.get(stock);
+            table.addRow(new Object[]{stock.getName(),value,stock.getPrice()});
+        }
+    }
+
+    private void setTotal_balance_label(){
+        BaseCurrency crr = this.user_bank_account.getBalance();
+        total_balance.setText(String.valueOf(crr.getAmount()));
+    }
+
+    private void setTotal_realized_profit_label(){
+        BaseCurrency crr = this.user_bank_account.getRealizedProfit();
+        total_realized_profit.setText(String.valueOf(crr.getAmount()));
+    }
+    private void setTotal_unrealized_profit_label(){
+        BaseCurrency crr = this.user_bank_account.getUnrealizedProfit();
+        total_unrealized_profit.setText(String.valueOf(crr.getAmount()));
+    }
 
     /**
      * @param args the command line arguments
@@ -225,7 +274,7 @@ public class SecurityAccount extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add_balance_button;
+//    private javax.swing.JButton add_balance_button;
     private javax.swing.JButton buy_stock_button;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
