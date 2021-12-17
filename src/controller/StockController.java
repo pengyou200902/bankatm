@@ -28,6 +28,10 @@ public class StockController {
         stockDao = StockDao.getInstance();
         securityDao = SecurityDao.getInstance();
         bankAccountController = new BankAccountController();
+        List<Security> securities = securityDao.getAll();
+        for (Security security: securities) {
+            updateUnrealizedProfit(security);
+        }
     }
 
     public OpResponse getAllStocks() {
@@ -55,9 +59,14 @@ public class StockController {
             stringBuilder.append(" Stock is enabled.");
         }
         real.setEnabled(enabled);
-        real.getPrice().setAmount(price);
-        stockDao.update(real);
-
+        if (real.getPrice().getAmount() != price) {
+            real.getPrice().setAmount(price);
+            stockDao.update(real);
+            List<Security> securities = securityDao.getAll();
+            for (Security security: securities) {
+                updateUnrealizedProfit(security);
+            }
+        }
         return new OpResponse(1, true, stringBuilder.toString(), real);
     }
 
