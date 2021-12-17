@@ -1,5 +1,9 @@
 package view;
 
+import controller.BankAccountController;
+import model.BaseCurrency;
+import model.Checking;
+
 import javax.swing.*;
 import java.awt.Color;
 
@@ -15,14 +19,17 @@ import java.awt.Color;
 
 public class ManagerFrame extends javax.swing.JFrame {
 
+    private BankAccountController bankAccountController;
+
     /**
      * Creates new form Manager_frame
      */
 
     public ManagerFrame() {
+        bankAccountController = new BankAccountController();
         initComponents();
-         this.getContentPane().setBackground(Color.GREEN);
-         manager_panel.setBackground(Color.GREEN);
+        this.getContentPane().setBackground(Color.GREEN);
+        manager_panel.setBackground(Color.GREEN);
     }
 
     /**
@@ -39,6 +46,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         manage_stocks = new javax.swing.JButton();
         View_customer = new javax.swing.JButton();
         Review_Loan_button = new javax.swing.JButton();
+        income = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +91,8 @@ public class ManagerFrame extends javax.swing.JFrame {
                                 .addComponent(View_customer)
                                 .addGap(18, 18, 18)
                                 .addComponent(Review_Loan_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+                                .addContainerGap()
+                                .addComponent(income))
         );
         manager_panelLayout.setVerticalGroup(
                 manager_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,9 +102,20 @@ public class ManagerFrame extends javax.swing.JFrame {
                                         .addComponent(view_report)
                                         .addComponent(manage_stocks)
                                         .addComponent(View_customer)
-                                        .addComponent(Review_Loan_button))
+                                        .addComponent(Review_Loan_button)
+                                        .addComponent(income))
                                 .addContainerGap(290, Short.MAX_VALUE))
         );
+        //
+        StringBuilder stringBuilder = new StringBuilder();
+        Checking checking = (Checking) bankAccountController.getAllBankAccounts("admin")[0];
+        stringBuilder.append("<html><body>");
+        for (BaseCurrency currency: checking.getCurrencies()) {
+            stringBuilder.append(currency.toString());
+            stringBuilder.append("<br>");
+        }
+        stringBuilder.append("</body></html>");
+        income.setText(stringBuilder.toString());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,5 +201,6 @@ public class ManagerFrame extends javax.swing.JFrame {
     private javax.swing.JButton manage_stocks;
     private javax.swing.JPanel manager_panel;
     private javax.swing.JButton view_report;
+    private javax.swing.JLabel income;
     // End of variables declaration//GEN-END:variables
 }
