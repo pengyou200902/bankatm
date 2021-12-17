@@ -34,6 +34,8 @@ public class SecurityAccount extends javax.swing.JFrame {
         jPanel1.setBackground(Color.GREEN);
         clear_table();
         addDataToTable();
+        clear_table2();
+        addDataToTable2();
         setTotal_balance_label();
         setTotal_realized_profit_label();
         setTotal_unrealized_profit_label();
@@ -55,6 +57,8 @@ public class SecurityAccount extends javax.swing.JFrame {
         total_balance_label = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         stock_table = new javax.swing.JTable();
+//        jScrollPane2 = new javax.swing.JScrollPane();
+        stock_table2 = new javax.swing.JTable();
         total_realized_profit_label = new javax.swing.JLabel();
         total_unrealized_profit_label = new javax.swing.JLabel();
         total_balance = new javax.swing.JLabel();
@@ -97,6 +101,18 @@ public class SecurityAccount extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(stock_table);
+
+        stock_table2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                        {null, null},
+                        {null, null},
+                        {null, null}
+                },
+                new String [] {
+                        "Stock Name","Price"
+                }
+        ));
+        jScrollPane1.setViewportView(stock_table2);
 
         total_realized_profit_label.setText("Total Realized Profit");
 
@@ -188,6 +204,8 @@ public class SecurityAccount extends javax.swing.JFrame {
         setTotal_unrealized_profit_label();
         clear_table();
         addDataToTable();
+        clear_table2();
+        addDataToTable2();
     }//GEN-LAST:event_sell_stock_buttonActionPerformed
 
     private void buy_stock_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buy_stock_buttonActionPerformed
@@ -199,6 +217,8 @@ public class SecurityAccount extends javax.swing.JFrame {
         setTotal_unrealized_profit_label();
         clear_table();
         addDataToTable();
+        clear_table2();
+        addDataToTable2();
     }//GEN-LAST:event_buy_stock_buttonActionPerformed
 
 //    private void add_balance_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_balance_buttonActionPerformed
@@ -219,7 +239,7 @@ public class SecurityAccount extends javax.swing.JFrame {
         Set<Stock> keys =  Stocks.keySet();
         for(Stock stock: keys){
             int value = Stocks.get(stock);
-            table.addRow(new Object[]{stock.getName(),value,stock.getPrice()});
+            table.addRow(new Object[]{stock.getName(),value,stock.getPrice().getAmount()});
         }
     }
 
@@ -235,6 +255,21 @@ public class SecurityAccount extends javax.swing.JFrame {
     private void setTotal_unrealized_profit_label(){
         BaseCurrency crr = this.user_bank_account.getUnrealizedProfit();
         total_unrealized_profit.setText(String.valueOf(crr.getAmount()));
+    }
+
+    private void addDataToTable2(){
+        DefaultTableModel table = (DefaultTableModel)  stock_table2.getModel();
+        LinkedList<Stock> stockList = (LinkedList<Stock>) this.stock_account_controller.getAllStocks().data;
+        for (Stock stock : stockList) {
+            table.addRow(new Object[]{stock.getName(),stock.getPrice().getAmount()});
+        }
+    }
+
+    private void clear_table2(){
+        DefaultTableModel table = (DefaultTableModel)  stock_table2.getModel();
+        for (int i = table.getRowCount() - 1; i >= 0; i--) {
+            table.removeRow(i);
+        }
     }
 
     /**
@@ -278,8 +313,10 @@ public class SecurityAccount extends javax.swing.JFrame {
     private javax.swing.JButton buy_stock_button;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+//    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton sell_stock_button;
     private javax.swing.JTable stock_table;
+    private javax.swing.JTable stock_table2;
     private javax.swing.JLabel total_balance;
     private javax.swing.JLabel total_balance_label;
     private javax.swing.JLabel total_realized_profit;
