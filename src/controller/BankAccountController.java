@@ -72,7 +72,7 @@ public class BankAccountController {
         }
 
         if (type.equals(AccountTypes.CHECKING.getTypeString())) {
-            if (checkingDao.getById(username) != null) {
+            if (checkingDao.getByUsername(username) != null) {
                 return new OpResponse(0, false, "You have already got a checking account.");
             }
 
@@ -87,7 +87,7 @@ public class BankAccountController {
             }
         }
         else { // Saving
-            if (savingDao.getById(username) != null) {
+            if (savingDao.getByUsername(username) != null) {
                 return new OpResponse(0, false,  "You have already got a saving account.");
             }
 
