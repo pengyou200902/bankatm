@@ -177,7 +177,7 @@ public class StockController {
             sum += diff * quantity;
         }
         unrealizedProfit.setAmount(sum);
-
+        securityDao.update(account);
     }
 
     private BaseCurrency getOldPrice(Security account, Stock stock) {
