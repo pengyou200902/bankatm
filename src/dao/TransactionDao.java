@@ -47,7 +47,7 @@ public class TransactionDao implements BaseDao<Transaction, Integer> {
                 .getConnection()
                 .createStatement();
             
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             
             String sql = "INSERT INTO " + tableName + " (INTERESTRATE, ACCOUNT, ACCTYPE, CURRENCY, COMMENT, DATE) VALUES ("
                 + transaction.getInterestRate() + ", '" 
