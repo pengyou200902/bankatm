@@ -149,9 +149,10 @@ public class StockController {
         HashMap<Stock, Integer> owned = account.getOwned();
 //        BaseCurrency price = getOldPrice(account, real);
 
-        int total = quantity + owned.get(real);
+        int amount = owned.getOrDefault(real, 0);
+        int total = quantity + amount;
         double oldAmount = oldPrice.getAmount();
-        double newAmount = (oldAmount * owned.get(real) + real.getPrice().getAmount() * quantity) / total;
+        double newAmount = (oldAmount * amount + real.getPrice().getAmount() * quantity) / total;
 //        oldPrice.setAmount(newAmount);
         return new BaseCurrency(oldPrice.getName(), newAmount);
     }
