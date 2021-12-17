@@ -91,6 +91,7 @@ public class AddAccount extends javax.swing.JDialog {
 
         }
 
+
 //        this.accounts = bank_account_controller.getAllBankAccounts(this.user.getUsername());
     }
 

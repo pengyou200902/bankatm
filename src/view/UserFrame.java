@@ -169,10 +169,10 @@ public class UserFrame extends javax.swing.JDialog {
             SecurityAccount sec_acc = new SecurityAccount((Security) user_acc[2]);
             sec_acc.setVisible(true);
         } else if (acc_type.equalsIgnoreCase(AccountTypes.SAVING.getTypeString())) {
-            UserAccount acc = new UserAccount(this, true, user_acc[1]);
+            UserAccount acc = new UserAccount(this, true, user_acc[1], "SAVING");
             acc.setVisible(true);
         } else { // checking
-            UserAccount acc = new UserAccount(this, true, user_acc[0]);
+            UserAccount acc = new UserAccount(this, true, user_acc[0], "CHECKING");
             acc.setVisible(true);
         }
     }//GEN-LAST:event_account_view_buttonActionPerformed

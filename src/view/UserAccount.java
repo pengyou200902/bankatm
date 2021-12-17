@@ -1,7 +1,10 @@
 package view;
 import controller.*;
 import model.*;
+
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,14 +22,18 @@ public class UserAccount extends javax.swing.JFrame {
      * Creates new form user_account
      */
     private BankAccount user_bank_account;
+    private String account_type;
     private BankAccountController bank_account_controller;
 
-    public UserAccount(javax.swing.JDialog parent, boolean modal, BankAccount acc) {
+    public UserAccount(javax.swing.JDialog parent, boolean modal, BankAccount acc, String acc_type) {
         this.user_bank_account = acc;
         this.bank_account_controller = new BankAccountController();
+        this.account_type = acc_type;
         initComponents();
         setLocationRelativeTo(parent);
         panel1.setBackground(Color.GREEN);
+        clear_table();
+        addDataToTable();
     }
 
 //    public user_account(User_frame aThis, boolean b) {
@@ -152,7 +159,10 @@ public class UserAccount extends javax.swing.JFrame {
             WithdrawFrame withdraw = new WithdrawFrame(this, true, this.user_bank_account, currency_type, balance);
             withdraw.setVisible(true);
 
-        }//GEN-LAST:event_withdraw_buttonActionPerformed
+        }
+        //GEN-LAST:event_withdraw_buttonActionPerformed
+        clear_table();
+        addDataToTable();
     }
         private void deposit_buttonActionPerformed (java.awt.event.ActionEvent evt)
         {//GEN-FIRST:event_deposit_buttonActionPerformed
@@ -161,6 +171,8 @@ public class UserAccount extends javax.swing.JFrame {
             DepositMoneyFrame deposit_frame = new DepositMoneyFrame(this, true, this.user_bank_account);
             // Update the table
             deposit_frame.setVisible(true);
+            clear_table();
+            addDataToTable();
 
 
         }//GEN-LAST:event_deposit_buttonActionPerformed
@@ -170,6 +182,8 @@ public class UserAccount extends javax.swing.JFrame {
             // TODO add your handling code here:
             TransferMoneyFrame frame = new TransferMoneyFrame(this, true, this.user_bank_account);
             frame.setVisible(true);
+            clear_table();
+            addDataToTable();
         }//GEN-LAST:event_transfer_money_buttonActionPerformed
 
         private void apply_loan_buttonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,12 +191,43 @@ public class UserAccount extends javax.swing.JFrame {
         if(this.user_bank_account.getType().equals(AccountTypes.CHECKING)){
             LoanForm frame = new LoanForm(this,true,this.user_bank_account);
             frame.setVisible(true);
+            clear_table();
+            addDataToTable();
         }
         else{
             javax.swing.JOptionPane.showMessageDialog(this, "Only Checking account can apply for loan", "Warning",
                     javax.swing.JOptionPane.WARNING_MESSAGE);
         }
     }
+
+    private void clear_table(){
+        DefaultTableModel table = (DefaultTableModel)  accounts_table.getModel();
+        for (int i = table.getRowCount() - 1; i >= 0; i--) {
+            table.removeRow(i);
+        }
+    }
+
+    private void addDataToTable(){
+        DefaultTableModel table = (DefaultTableModel)  accounts_table.getModel();
+//        this.accounts = bank_account_controller.getAllBankAccounts(this.user.getUsername());
+//        Checking checking = (Checking) this.accounts[0];
+//        Saving saving = (Saving) this.accounts[1];
+//        Security security = (Security) this.accounts[2];
+
+        if(this.account_type.equalsIgnoreCase("CHECKING")){
+
+            Checking bank_account = (Checking) this.user_bank_account;
+            List<BaseCurrency> currencyList = bank_account.getCurrencies();
+            for(BaseCurrency crr : currencyList){
+                table.addRow(new Object[]{crr.getName(),crr.getAmount()});
+            }
+        }
+        else{
+            Saving bank_account = (Saving) this.user_bank_account;
+            BaseCurrency crr = bank_account.getBalance();
+            table.addRow(new Object[]{crr.getName(),crr.getAmount()});
+        }
+        }
 
         /**
          * @param args the command line arguments
