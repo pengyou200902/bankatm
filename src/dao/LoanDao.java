@@ -46,7 +46,7 @@ public class LoanDao implements BaseDao<Loan, Integer> {
                     .getConnection()
                     .createStatement();
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
             String sql = "INSERT INTO " + tableName + " (STATUS, CHECKING, CURRENCY, DATE, INTERESTRATE) VALUES ('"
                     + loan.getStatus() + "', '"
@@ -112,7 +112,7 @@ public class LoanDao implements BaseDao<Loan, Integer> {
                     .getConnection()
                     .createStatement();
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
             String sql = "UPDATE " + tableName + " set "
                     + "STATUS=" + loan.getStatus() + ", "
