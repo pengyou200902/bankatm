@@ -41,7 +41,7 @@ public class LoginPage extends javax.swing.JFrame {
         password_textfield = new javax.swing.JPasswordField();
         buttons_pannel = new javax.swing.JPanel();
         login_button = new javax.swing.JButton();
-        change_password_button = new javax.swing.JButton();
+//        change_password_button = new javax.swing.JButton();
         sign_up_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,13 +66,13 @@ public class LoginPage extends javax.swing.JFrame {
         });
         buttons_pannel.add(login_button);
 
-        change_password_button.setText("Change password");
-        change_password_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                change_password_buttonActionPerformed(evt);
-            }
-        });
-        buttons_pannel.add(change_password_button);
+//        change_password_button.setText("Change password");
+//        change_password_button.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                change_password_buttonActionPerformed(evt);
+//            }
+//        });
+//        buttons_pannel.add(change_password_button);
 
         sign_up_button.setText("Sign up");
         sign_up_button.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +140,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttons_pannel;
-    private javax.swing.JButton change_password_button;
+//    private javax.swing.JButton change_password_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton login_button;
